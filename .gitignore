@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Benchmark runtime
+benchmark/.cache/
+benchmark/runs/
+benchmark/.venv/
+benchmark/logs/
+benchmark/*.json
+benchmark/.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude
+.claude/

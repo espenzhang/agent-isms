@@ -1,0 +1,7 @@
+interface:
+  display_name: "Taylorist Execution"
+  short_description: "Taylor-style execution for any knowledge work"
+  default_prompt: "Use $taylorist-execution to structure this work with explicit planning, instruction cards, waste diagnosis, feedback loops, and verification."
+
+policy:
+  allow_implicit_invocation: false

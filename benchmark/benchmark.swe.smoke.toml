@@ -1,0 +1,103 @@
+[paths]
+cache_dir = ".cache"
+samples_dir = "samples"
+runs_dir = "runs"
+reports_dir = "reports"
+cleanup_task_workspaces = true
+
+[codex]
+model = ""
+timeout_sec = 1800
+sandbox = "danger-full-access"
+skip_git_repo_check = true
+extra_args = ["--color", "never"]
+
+[[skills]]
+id = "taylorism"
+name = "Taylorism"
+path = "/Users/espen/Desktop/methodology/泰勒主义/SKILL.md"
+
+[[skills]]
+id = "keynesian"
+name = "Keynesian Engineer"
+path = "/Users/espen/Desktop/methodology/凯恩斯主义/keynesian-engineer/SKILL.md"
+
+[[skills]]
+id = "pragmatist"
+name = "Pragmatist Engineering"
+path = "/Users/espen/Desktop/methodology/实用主义/pragmatist-engineering/SKILL.md"
+
+[[skills]]
+id = "evolutionary"
+name = "Evolutionary Execution"
+path = "/Users/espen/Desktop/methodology/社会达尔文主义-演化/evolutionary-execution/SKILL.md"
+
+[[skills]]
+id = "marxist"
+name = "Marxist Engineering Method"
+path = "/Users/espen/Desktop/methodology/马克思/marxist-engineering-method/SKILL.md"
+
+[[variants]]
+id = "baseline"
+name = "Baseline"
+skills = []
+
+[[variants]]
+id = "taylorism_only"
+name = "Taylorism Only"
+skills = ["taylorism"]
+
+[[variants]]
+id = "keynesian_only"
+name = "Keynesian Only"
+skills = ["keynesian"]
+
+[[variants]]
+id = "pragmatist_only"
+name = "Pragmatist Only"
+skills = ["pragmatist"]
+
+[[variants]]
+id = "evolutionary_only"
+name = "Evolutionary Only"
+skills = ["evolutionary"]
+
+[[variants]]
+id = "marxist_only"
+name = "Marxist Only"
+skills = ["marxist"]
+
+[[variants]]
+id = "all_skills"
+name = "All Skills"
+skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist"]
+
+[benchmarks.aider_polyglot]
+enabled = false
+sample_size = 100
+seed = 42
+repo_url = "https://github.com/Aider-AI/polyglot-benchmark"
+
+[benchmarks.swebench_lite]
+enabled = true
+sample_size = 1
+seed = 42
+dataset_name = "SWE-bench/SWE-bench_Lite"
+split = "test"
+
+[benchmarks.swebench_verified]
+enabled = false
+sample_size = 100
+seed = 42
+dataset_name = "SWE-bench/SWE-bench_Verified"
+split = "test"
+
+[benchmarks.terminal_bench]
+enabled = false
+sample_size = 100
+seed = 42
+repo_url = "https://github.com/harbor-framework/terminal-bench"
+task_root = "original-tasks"
+tb_output_dir = "tb_runs"
+tb_cleanup = true
+tb_n_concurrent = 1

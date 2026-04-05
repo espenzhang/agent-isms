@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marxist Engineering Method"
+  short_description: "Dialectical, practice-first workflow for research, planning, coding, architecture, debt management, coordination, incident response, and migration."
+  default_prompt: "Use $marxist-engineering-method to research, break down, implement, design, refactor, triage, migrate, and verify this engineering task from a practice-first, contradiction-aware, and condition-specific perspective."

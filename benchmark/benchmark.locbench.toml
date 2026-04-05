@@ -1,0 +1,82 @@
+[paths]
+cache_dir = ".cache"
+samples_dir = "samples"
+runs_dir = "runs"
+reports_dir = "reports"
+cleanup_task_workspaces = true
+
+[agent]
+type = "claude"
+model = "haiku"
+timeout_sec = 600
+
+[agent.claude]
+extra_args = []
+
+[[skills]]
+id = "taylorism"
+name = "Taylorism"
+path = "/Users/espen/Desktop/methodology/泰勒主义/SKILL.md"
+
+[[skills]]
+id = "keynesian"
+name = "Keynesian Engineer"
+path = "/Users/espen/Desktop/methodology/凯恩斯主义/keynesian-engineer/SKILL.md"
+
+[[skills]]
+id = "pragmatist"
+name = "Pragmatist Engineering"
+path = "/Users/espen/Desktop/methodology/实用主义/pragmatist-engineering/SKILL.md"
+
+[[skills]]
+id = "evolutionary"
+name = "Evolutionary Execution"
+path = "/Users/espen/Desktop/methodology/社会达尔文主义-演化/evolutionary-execution/SKILL.md"
+
+[[skills]]
+id = "marxist"
+name = "Marxist Engineering Method"
+path = "/Users/espen/Desktop/methodology/马克思/marxist-engineering-method/SKILL.md"
+
+[[variants]]
+id = "baseline"
+name = "Baseline"
+skills = []
+
+[[variants]]
+id = "taylorism_only"
+name = "Taylorism Only"
+skills = ["taylorism"]
+
+[[variants]]
+id = "keynesian_only"
+name = "Keynesian Only"
+skills = ["keynesian"]
+
+[[variants]]
+id = "pragmatist_only"
+name = "Pragmatist Only"
+skills = ["pragmatist"]
+
+[[variants]]
+id = "evolutionary_only"
+name = "Evolutionary Only"
+skills = ["evolutionary"]
+
+[[variants]]
+id = "marxist_only"
+name = "Marxist Only"
+skills = ["marxist"]
+
+[[variants]]
+id = "all_skills"
+name = "All Skills"
+skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist"]
+
+[benchmarks.locbench]
+enabled = true
+sample_size = 30
+seed = 42
+dataset_name = "czlll/Loc-Bench_V1"
+split = "test"
+top_k = 5

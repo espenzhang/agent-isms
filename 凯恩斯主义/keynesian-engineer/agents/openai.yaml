@@ -1,0 +1,7 @@
+interface:
+  display_name: "Keynesian Engineer"
+  short_description: "Keynesian research, planning, coding, coordination"
+  default_prompt: "Use $keynesian-engineer to research, plan, implement, and coordinate software work with a Keynesian methodology — active intervention under uncertainty, multiplier-driven sequencing, counter-cyclical investment, and systemic stability thinking."
+
+policy:
+  allow_implicit_invocation: false

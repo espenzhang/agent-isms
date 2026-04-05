@@ -1,0 +1,7 @@
+interface:
+  display_name: "Pragmatist Engineering"
+  short_description: "Use pragmatism to research, decompose, code, decide under uncertainty, align stakeholders, manage change, resolve trade-offs, and establish processes"
+  default_prompt: "Use $pragmatist-engineering to turn this task into concrete consequences, testable next steps, and verified progress."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Evolutionary Execution"
+  short_description: "Adaptive research, planning, coding, and testing skill"
+  default_prompt: "Use $evolutionary-execution to compare options, adapt to constraints, and converge through evidence."
+
+policy:
+  allow_implicit_invocation: true
