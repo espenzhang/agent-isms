@@ -119,7 +119,32 @@ When investigating:
   - What does the user need now?
   - What blocks progress?
   - What information would most change the next decision?
-- When localizing a bug or problem, apply multiplier thinking: trace the dependency chain from symptom to cause, prioritizing high-throughput code paths where a single fix has the largest downstream impact.
+- When localizing a bug or problem — i.e., identifying which files need to be edited — apply the following procedure:
+
+**Fault Localization Procedure (Keynesian Multiplier Method):**
+
+```
+STEP 1 — Identify effective demand:
+  Read the problem statement. What specific behavior is demanded but not supplied?
+  List the exact class names, function names, or error strings mentioned.
+
+STEP 2 — Find the supply gap:
+  grep -r "FailingClass\|error_string" --include="*.py" -l
+  (adapt extension to the repository language)
+  Read the top 1-2 matching files to understand what they supply.
+
+STEP 3 — Apply the multiplier heuristic:
+  For each candidate file, estimate its "import multiplier":
+  grep -r "import.*<module>\|from.*<module>" --include="*.py" -l | wc -l
+  Files imported by many others have the highest multiplier — a fix here propagates furthest.
+  Prioritize high-multiplier files near the demand gap.
+
+STEP 4 — Rank by expected impact:
+  Highest rank: the file that owns the failing behavior AND has high import count.
+  Second rank: direct callers if the bug may be in how the function is invoked.
+  Include a test file only if it directly exercises the described failure path.
+```
+
 - Watch for **beauty-contest dynamics**: are decisions being shaped by what people think others want, rather than by evidence?
 - Stop gathering once the next high-quality intervention is clear. Do not over-research when action is available.
 

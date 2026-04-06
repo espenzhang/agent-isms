@@ -23,8 +23,10 @@ def _run_codex_task(
     ensure_dir(output_dir)
     last_message_path = output_dir / "last_message.txt"
     cfg = app.agent.codex
+    import shutil as _shutil
+    codex_bin = _shutil.which("codex") or "/opt/homebrew/bin/codex"
     cmd = [
-        "codex",
+        codex_bin,
         "exec",
         "--json",
         "--ephemeral",
@@ -109,8 +111,10 @@ def _run_claude_task(
     prompt_file = output_dir / "claude_prompt.txt"
     prompt_file.write_text(prompt, encoding="utf-8")
 
+    import shutil as _shutil
+    claude_bin = _shutil.which("claude") or "/opt/homebrew/bin/claude"
     cmd = [
-        "claude",
+        claude_bin,
         "-p",
         "-",
         "--output-format", "json",
@@ -121,6 +125,12 @@ def _run_claude_task(
     try:
         import os as _os
         merged_env = _os.environ.copy()
+        # Ensure Homebrew and common Node/tool paths are in PATH for subprocesses
+        extra_paths = ["/opt/homebrew/bin", "/usr/local/bin"]
+        current_path = merged_env.get("PATH", "")
+        for p in extra_paths:
+            if p not in current_path:
+                merged_env["PATH"] = p + ":" + merged_env.get("PATH", "")
         with subprocess.Popen(
             cmd,
             cwd=str(workspace),

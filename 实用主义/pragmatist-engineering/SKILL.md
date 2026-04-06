@@ -70,6 +70,33 @@ Collect only information that can change the next action. Prefer:
 
 Ignore interesting but non-decisive detail until it becomes action-relevant.
 
+**Fault Localization Procedure (Pragmatist Method):**
+
+When asked to identify which files need editing given a bug report or issue, apply the minimum effective investigation:
+
+```
+STEP 1 — Define the consequential question:
+  "Which specific file, if changed, would most directly fix the described behavior?"
+  Extract the key entity (class, function, error string) from the problem statement.
+
+STEP 2 — Run the cheapest discriminating search:
+  grep -r "KeyEntity" --include="*.py" -l
+  (adapt extension to repository language)
+  Read the top 1-2 matching files. Ask: does changing this file resolve the issue?
+
+STEP 3 — Expand only if necessary:
+  If the direct search yields fewer than 5 credible candidates,
+  search for related entities or the calling context:
+  grep -r "related_term" --include="*.py" -l
+  Read only files that could plausibly be the fix location.
+
+STEP 4 — Stop when you have enough:
+  Once you can name 5 files with positive reasoning (each file read or found
+  via direct search), stop. Do not search further.
+  Rank by directness: the file that most directly implements the described
+  failing behavior ranks first.
+```
+
 When uncertainty is high and cannot be cheaply resolved, classify the decision:
 
 - Live or dead? Is each option genuinely possible given current constraints?

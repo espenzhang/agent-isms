@@ -86,6 +86,35 @@ Process:
    Example: freshness, relevance, primary-source quality, coverage, decision usefulness.
 2. Generate parallel search angles.
    Use different queries, framing lenses, or source classes rather than one narrow search path. When investigating a bug, this means probing from multiple directions: read the error message, trace the call stack, inspect related tests, and examine recent changes to the affected area.
+
+**Fault Localization Procedure (Evolutionary Method):**
+
+When asked to identify which files need editing given a bug report or issue:
+
+```
+STEP 1 — Generate candidate theories (variation):
+  Read the problem statement. Produce 3 distinct theories about where the bug lives:
+  - Theory A: the file that directly implements the described behavior
+  - Theory B: a configuration or shared utility the main file depends on
+  - Theory C: a caller or orchestrator that misuses the main component
+
+STEP 2 — List the repository structure:
+  find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" \) | head -60
+  Identify which directories correspond to which theory.
+
+STEP 3 — Probe each theory (selection):
+  For each theory, run one targeted search:
+  grep -r "RelevantClassName\|relevant_function" --include="*.py" -l
+  Read the top result for each theory.
+
+STEP 4 — Eliminate weak variants:
+  Discard theories where evidence contradicts them or the files found are
+  clearly unrelated to the described behavior.
+
+STEP 5 — Retain the fittest candidates:
+  Rank surviving candidate files by strength of evidence.
+  Fill remaining spots from the best-evidenced theories.
+```
 3. Select against low-signal material.
    Prefer primary sources, direct evidence, recent data, and sources that change the decision.
 4. Assess density of existing knowledge.

@@ -81,6 +81,40 @@ Inspect the existing state before proposing a path. Do not jump to execution fro
 
 When investigating a problem or bug, study means: read the repository structure, trace the relevant code paths, inspect test coverage, and examine error messages or failing outputs. Map the system's components and their relationships before proposing a cause.
 
+#### Fault Localization Procedure (Study Applied to Bug Reports)
+
+When given a bug report or issue and asked to identify which files need editing, apply the following instruction card:
+
+```
+Task:        Identify the top 5 files most likely to need editing
+Inputs:      Problem statement, read-only repository access
+Method:
+  STEP 1 — List the repository structure:
+    find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" \) | head -80
+    Read the directory layout to understand which module owns which behavior.
+
+  STEP 2 — Decompose the issue into elementary operations:
+    What specific operation is described as failing?
+    What should it do vs. what does it actually do?
+    List each described operation as a separate unit.
+
+  STEP 3 — Locate the file responsible for each operation:
+    grep -r "FailingFunctionName\|FailingClassName" --include="*.py" -l
+    Read the matching files. Confirm they handle the described operation.
+
+  STEP 4 — Check the direct call chain:
+    For the primary candidate, look at who calls it (search for its name in other files).
+    Include the calling file if the bug could live in how the call is made.
+
+  STEP 5 — Rank by ownership:
+    Files that own the most failing operations rank first.
+    Files one level up in the call chain rank second.
+    Include a test file if there is a directly relevant failing test.
+
+Output:      5 file paths ordered by likelihood, with one-line justification each
+Verification: Each file must have been found via grep or explicitly read
+```
+
 ### 3. Diagnose waste
 Before planning the work, identify what is being wasted or could be wasted:
 - **Effort waste**: doing things that do not contribute to the output; repeating work; using inefficient methods.

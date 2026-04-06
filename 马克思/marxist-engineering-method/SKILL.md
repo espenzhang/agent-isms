@@ -102,50 +102,74 @@ Follow this sequence unless the host agent already has a stronger local workflow
 - Keep unknowns explicit.
 - Use only the host agent's native capabilities. Do not assume external integrations.
 
-## Scenario 1: Research And Information Gathering
+## Scenario 1: Research, Information Gathering, And Fault Localization
 
-Use this mode when requirements are fuzzy, context is missing, or the task begins with investigation. This includes fault localization: given a problem description, identifying which files or modules are responsible.
+Use this mode when requirements are fuzzy, context is missing, the task begins with investigation, or you are asked to identify which files in a repository need to be changed to fix a bug or issue.
 
-Procedure:
+### Fault Localization Procedure
 
-1. Define the practical question.
-   Replace broad prompts like "research this codebase" with answerable prompts such as "what blocks login reliability?" or "which files must change to fix this behavior?"
+When given a problem statement or bug report and asked to identify which files need editing, execute these steps in order. Do not skip steps.
 
-2. Start from the material structure of the repository.
-   Before theorizing about causes, inspect the concrete layout: directory structure, module boundaries, entry points, test organization, configuration files, and dependency relationships. The repository's material structure determines where bugs can live. Map the terrain before hunting.
+**Step 1 — Map the material conditions.**
+Inspect the actual structure of the repository before forming any theory:
+- Run `find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" -o -name "*.go" -o -name "*.java" \) | head -80` to see the file tree.
+- Read the top-level directory listing to understand module organization.
+- Note which directories correspond to which subsystems.
+The material structure of the codebase determines where bugs can live. Do not skip this step.
 
-3. Build a concrete evidence set.
-   Read the smallest high-value set of files, docs, tests, configs, errors, or commit history needed to see the situation. Include practitioner signals: bug reports, workaround patterns, operator notes. Prioritize files that are directly named in error messages, stack traces, or the problem description.
+**Step 2 — Extract concrete entities from the issue.**
+Read the problem statement carefully. List explicitly:
+- Every class name, function name, method name, module name, or file name mentioned.
+- The specific behavior described: what error occurs, what wrong output is produced, what test fails.
+- Any stack traces, error messages, or line references.
 
-4. Ascend from observations to structure.
-   Find the cell form: the simplest meaningful operation in the system. Layer complexity onto it until the observed behavior is explained. If you cannot trace from cell form to observed problem, the analysis is incomplete (从抽象到具体).
+**Step 3 — Search for each extracted entity.**
+For every entity identified in Step 2:
+- Run `grep -r "EntityName" --include="*.py" -l` (adapt extension to the repo language) to find all files containing it.
+- Read the most relevant files to understand what mechanism they implement.
 
-5. Trace the chain of universal connections.
-   From the symptom, follow the dependency chain: which module calls which? Which file imports which? Which test exercises which path? Map at least two levels of connections outward from the symptom. The bug often lives not in the file that reports the error, but in a file one or two dependency levels upstream (普遍联系).
+**Step 4 — Trace universal connections (the decisive step).**
+This is the step that separates appearance from essence. The file that shows the error is often not the file that must change. For each top candidate from Step 3:
+- Run `grep -r "import.*<module_name>\|from.*<module_name>" --include="*.py" -l` to find every file that imports this candidate. These are upstream dependents — bugs in shared modules surface here.
+- Look inside the candidate file itself: `grep "^import\|^from" <candidate_file>` to see what it depends on. One of those dependencies may be the true source.
+- Build a two-level map: what does this file import? Who imports this file?
 
-6. Distinguish contradiction layers.
-   Separate:
-- stated requirement vs actual requirement
-- symptom vs cause (the file that throws is often not the file that must change)
-- local module issue vs architectural issue
-- missing information vs real implementation difficulty
-- technical constraint vs organizational constraint
+**Step 5 — Identify the principal file (the root contradiction).**
+Among all candidates, name the one file that:
+- Owns the mechanism that produces the wrong behavior, AND
+- Changing it would most directly resolve the described symptom.
 
-7. Identify the principal file or module.
-   Among all suspect files, name the one that most governs the observed misbehavior. This is the file where the principal contradiction lives. Changing this file is likely necessary; changing other files without changing this one is likely insufficient. Rank remaining suspect files by their causal proximity to the principal contradiction.
+This is the principal file — the location of the principal contradiction. The error may surface elsewhere, but the cause lives here.
 
-8. Produce a contradiction-centered summary.
-   Summarize findings in terms of forces and constraints, not just notes. Name the principal contradiction, the principal file, and the next best step.
+**Step 6 — Rank the remaining suspects by causal proximity.**
+Order your remaining top-4 candidates by how directly they relate to the principal file:
+- Direct callers/importers of the principal file rank higher.
+- Files that implement related but secondary mechanisms rank lower.
+- Include a test file if a test directly exercises the failing path.
+
+**Step 7 — Verify with evidence before finalizing.**
+For each of your 5 predictions, state the specific evidence:
+- Which file did you read?
+- What specific code pattern (import, function call, class definition) connects it to the described symptom?
+
+Do not include a file in your top-5 unless you have read it or read something that imports/is imported by it.
+
+### General Research Procedure
+
+For non-localization investigation tasks:
+
+1. Define the practical question with an answerable form: not "research this codebase" but "what blocks X?" or "what is the safest path to Y?"
+2. Build a concrete evidence set. Prioritize files directly named in errors, stack traces, or the problem description.
+3. Ascend from observations to structure. Find the cell form (simplest meaningful operation) and layer upward until the observed behavior is explained (从抽象到具体).
+4. Distinguish contradiction layers: symptom vs. cause, local vs. architectural, technical vs. organizational.
+5. Name the principal contradiction and the next best step.
 
 Output shape:
 - objective
-- evidence (including practitioner signals)
-- structural understanding (cell form → layered complications)
-- repository structure and dependency map relevant to the problem
-- main contradictions
+- evidence gathered (files read, searches run)
+- dependency map relevant to the problem
 - principal contradiction and the file(s) where it lives
-- ranked suspect files with causal justification
-- options (with specific conditions each option assumes)
+- ranked suspect files with specific causal justification
 - recommended next action
 
 ## Scenario 2: Project Push And Task Breakdown

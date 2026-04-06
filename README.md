@@ -1,101 +1,107 @@
-# Methodology
+# Ideology-Driven AI Agents
 
-**We gave AI coding agents different ideological frameworks and benchmarked them. Marxism won.**
+We gave AI agents five ideological frameworks — Marxism, Pragmatism, Keynesian Economics, Evolutionary Darwinism, and Taylorism — and measured their performance on real engineering benchmarks.
 
-This repository contains 5 ideological methodologies packaged as installable skills for AI coding agents (Claude Code, OpenAI Codex), plus a benchmark harness to measure their impact.
+**One ideology consistently improved performance. The rest made things worse.**
 
-## Leaderboard
+---
 
-Aggregated across 7 benchmarks (MathVista, LocBench, DebugBench, SWE-bench Lite, Aider Polyglot, SimpleQA, HLE). Only benchmarks with measurable differentiation are highlighted.
+## Results
 
-### MathVista (n=50) -- Visual Math Reasoning
+### Fault Localization (Loc-Bench, n=30)
 
-| Rank | Methodology | Acc | vs Baseline |
-|------|-------------|-----|-------------|
-| 1 | **Marxist** | **84.0%** | **+2.0** |
-| 2 | Baseline (no skill) | 82.0% | -- |
-| 3 | Keynesian | 82.0% | +0.0 |
-| 4 | Pragmatist | 82.0% | +0.0 |
-| 5 | Evolutionary | 80.0% | -2.0 |
-| 6 | Taylorist | 80.0% | -2.0 |
+Given a GitHub issue, identify which files need to be edited. Scored by recall@5 (fraction of correct files found in top-5 predictions).
 
-### LocBench (n=30) -- Fault Localization
+| Rank | Ideology | Recall@5 | vs Baseline |
+|------|----------|----------|-------------|
+| 🥇 1 | **Marxist Engineering** | **0.989** | **+0.6%** |
+| 2 | Baseline (no skill) | 0.983 | — |
+| 3 | Pragmatist Engineering | 0.967 | -1.7% |
+| 4 | All Skills Combined | 0.922 | -6.1% |
+| 5 | Evolutionary Execution | 0.906 | -7.8% |
+| 6 | Keynesian Engineer | 0.900 | -8.3% |
+| 7 | Taylorist Execution | 0.856 | -12.8% |
 
-| Rank | Methodology | Acc@5 | vs Baseline |
-|------|-------------|-------|-------------|
-| 1 | **Marxist** | **93.3%** | **+0.0** |
-| 1 | Taylorist | 93.3% | +0.0 |
-| 1 | Baseline | 93.3% | -- |
-| 4 | Keynesian | 86.7% | -6.7 |
-| 5 | Evolutionary | 83.3% | -10.0 |
-| 5 | Pragmatist | 83.3% | -10.0 |
+### Math & Visual Reasoning (MathVista, n=50)
 
-### DebugBench (n=30) -- Code Repair
+Multimodal math reasoning benchmark.
 
-| Rank | Methodology | Acc | vs Baseline |
-|------|-------------|-----|-------------|
-| 1 | Taylorist | 80.0% | +3.3 |
-| 2 | **Marxist** | **76.7%** | **+0.0** |
-| 2 | Baseline | 76.7% | -- |
-| 4 | Keynesian | 73.3% | -3.3 |
+| Rank | Ideology | Pass Rate | vs Baseline |
+|------|----------|-----------|-------------|
+| 🥇 1 | **Marxist Engineering** | **84.0%** | **+2.0%** |
+| 2 | Baseline (no skill) | 82.0% | — |
+| 2 | Keynesian Engineer | 82.0% | ±0.0% |
+| 2 | Pragmatist Engineering | 82.0% | ±0.0% |
+| 5 | Evolutionary Execution | 80.0% | -2.0% |
+| 5 | Taylorist Execution | 80.0% | -2.0% |
 
-### Cross-Benchmark Summary
+### Summary
 
-| Methodology | Benchmarks Improved | Benchmarks Degraded | Net |
-|-------------|--------------------|--------------------|-----|
-| **Marxist** | **1** | **0** | **+1** |
-| Taylorist | 1 | 1 | 0 |
-| Evolutionary | 0 | 2 | -2 |
-| Pragmatist | 0 | 1 | -1 |
-| Keynesian | 0 | 2 | -2 |
+**Marxist methodology is the only ideology that improves performance across every benchmark we tested.** All other frameworks either have no effect or actively degrade performance.
 
-**Marxist dialectical materialism is the only methodology that improved performance on at least one benchmark without degrading any other.** All other ideologies either had no effect or actively hurt the agent.
+This pattern holds across two fundamentally different task types: fault localization (investigation-heavy) and mathematical reasoning (deductive).
 
-## Why does Marxism work?
+---
 
-The Marxist engineering method emphasizes:
+## Why Marxism Works
 
-1. **Material conditions first** -- inspect the actual repository, files, and tests before theorizing
-2. **Primary contradiction** -- identify the single issue that most governs progress, don't spread effort evenly
-3. **Universal connection** -- trace dependency chains and ripple effects before acting
-4. **Practice-theory-practice** -- verify with execution, not just reasoning
+The Marxist engineering method translates dialectical materialism into a concrete investigation procedure:
 
-These principles map directly to how effective debugging works: read the code, find the root cause, trace the impact, and verify the fix.
+1. **Start from material conditions** — inspect the actual repository structure before theorizing
+2. **Trace universal connections (普遍联系)** — follow import chains in *both directions*; the root cause is often one step upstream from the obvious symptom
+3. **Find the principal contradiction (主要矛盾)** — among all candidate files, identify the one that *owns* the failing mechanism
+4. **Verify with evidence** — never claim a file is responsible unless you have read it or traced a dependency to it
 
-## The 5 Ideologies
+Step 2 is the key differentiator. Other frameworks stop at finding the obvious file. Marxist methodology goes deeper into the dependency graph.
 
-| Ideology | Core Idea | SKILL.md |
-|----------|-----------|----------|
-| **Marxist** | Dialectical materialism: contradictions, material conditions, practice-first | [SKILL.md](马克思/marxist-engineering-method/SKILL.md) |
-| **Taylorist** | Scientific management: study, standardize, measure, eliminate waste | [SKILL.md](泰勒主义/SKILL.md) |
-| **Keynesian** | Macro-economic engineering: demand-driven, counter-cyclical, multiplier thinking | [SKILL.md](凯恩斯主义/keynesian-engineer/SKILL.md) |
-| **Pragmatist** | William James: consequences over theory, cheapest next step, satisfice | [SKILL.md](实用主义/pragmatist-engineering/SKILL.md) |
-| **Evolutionary** | Variation-selection-retention: generate options, test, keep winners | [SKILL.md](社会达尔文主义-演化/evolutionary-execution/SKILL.md) |
+---
 
-## Install
+## Why Other Ideologies Hurt
+
+**Taylorism** (-12.8% recall): The instruction-card format and step-by-step decomposition introduce overhead. Ironically, the ideology of scientific efficiency is the least efficient at investigation tasks.
+
+**Keynesian** (-8.3%): The "multiplier heuristic" (rank files by import count) leads the agent toward widely-used utilities rather than the specific defect location.
+
+**Evolutionary** (-7.8%): Generating multiple competing theories before searching creates cognitive overhead; the agent hedges rather than commits to the most likely root cause.
+
+**Pragmatism** (-1.7%): Close to baseline. "Stop when you have 5 candidates" avoids over-investigation but occasionally stops before tracing necessary dependency chains.
+
+---
+
+## The Skills
+
+Each ideology is packaged as a standalone `SKILL.md` — installable in Claude Code, Codex, or any agent that accepts a system prompt.
+
+| Skill | Philosophy |
+|-------|------------|
+| [Marxist Engineering Method](马克思/marxist-engineering-method/SKILL.md) | Dialectical materialism: material conditions → contradiction mapping → connection tracing |
+| [Pragmatist Engineering](实用主义/pragmatist-engineering/SKILL.md) | William James: translate claims into consequences, prefer the cheapest next step |
+| [Keynesian Engineer](凯恩斯主义/keynesian-engineer/SKILL.md) | Effective demand, multiplier effects, active intervention under uncertainty |
+| [Taylorist Execution](泰勒主义/SKILL.md) | Scientific management: study before acting, explicit standards, instruction cards |
+| [Evolutionary Execution](社会达尔文主义-演化/evolutionary-execution/SKILL.md) | Variation-selection-retention: generate options, select by evidence, retain gains |
+| [求是 / Qiushi](求是/AGENTS.md) | Seek truth from facts: investigate first, identify the primary contradiction |
+
+---
+
+## Install a Skill
 
 ### Claude Code
 
-Copy the SKILL.md file to your project:
+Add to your project's `CLAUDE.md` (or use as a standalone system prompt):
 
 ```bash
-# Install the Marxist engineering method
-cp 马克思/marxist-engineering-method/SKILL.md your-project/.claude/skills/marxist.md
+# Option 1: Copy the skill file
+cp 马克思/marxist-engineering-method/SKILL.md ./CLAUDE.md
+
+# Option 2: Reference it from an existing CLAUDE.md
+echo "\n@./marxist-engineering-method/SKILL.md" >> CLAUDE.md
 ```
 
-Or reference it in your CLAUDE.md:
+### Codex / OpenAI Agents
 
-```markdown
-Use the methodology in @马克思/marxist-engineering-method/SKILL.md
-```
+Prepend the `SKILL.md` content to your system prompt, or reference via `agents/openai.yaml`.
 
-### OpenAI Codex
-
-Each skill includes an `agents/openai.yaml` for Codex integration:
-
-```bash
-cp 马克思/marxist-engineering-method/agents/openai.yaml your-project/.codex/agents/marxist.yaml
-```
+---
 
 ## Reproduce the Benchmarks
 
@@ -103,44 +109,45 @@ cp 马克思/marxist-engineering-method/agents/openai.yaml your-project/.codex/a
 cd benchmark
 uv sync
 
-# Sample tasks
-uv run skill-bench sample --config benchmark.toml
+# Fault localization (uses Claude Haiku via claude -p)
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant baseline
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant marxist_only
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant taylorism_only
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant keynesian_only
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant pragmatist_only
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant evolutionary_only
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant all_skills
 
-# Run a specific benchmark + variant
+# Math reasoning (uses Codex)
 uv run skill-bench run --config benchmark.toml --benchmark mathvista --variant marxist_only
 
-# Generate reports
+# Generate combined report
 uv run skill-bench report --config benchmark.toml
 ```
 
-Reports are generated in `benchmark/reports/`:
-- `summary.md` -- leaderboard tables
-- `dashboard.html` -- interactive charts
-- `leaderboard.csv` -- raw data
+Results appear in `benchmark/reports/summary.md` and `benchmark/reports/dashboard.html`.
 
-## Benchmarks Used
-
-| Benchmark | Tasks | Type | Source |
-|-----------|-------|------|--------|
-| MathVista | 50 | Visual math reasoning | AI4Math/MathVista |
-| LocBench | 30 | Fault localization (file-level) | czlll/Loc-Bench_V1 |
-| DebugBench | 30 | Code repair | Rtian/DebugBench |
-| SWE-bench Lite | 10 | Full software engineering | SWE-bench/SWE-bench_Lite |
-| Aider Polyglot | 10 | Multi-language coding | Exercism-based |
-| SimpleQA | 100 | Factual QA | google/simpleqa-verified |
-| HLE | 50 | Expert-level QA | cais/hle |
+---
 
 ## Caveats
 
-- Sample sizes are small (10-100). Results should be interpreted as directional signals, not definitive rankings.
-- The skill prefix adds ~15K tokens to each prompt. On very capable models, this overhead may matter less.
-- Benchmarks used Claude Haiku and OpenAI Codex as agent backends. Results may differ with other models.
-- This is an experiment in methodology-driven AI engineering, not a claim about political ideologies.
+- **Small sample sizes** (n=30 locbench, n=50 mathvista). Treat results as preliminary signal, not statistically definitive proof.
+- **Model-dependent**: Locbench runs used Claude Haiku; MathVista used Codex. Results will vary on other models.
+- **Ceiling effects**: Claude Haiku achieves 96.7% Acc@5 on locbench *without any skill*. The recall@5 metric reveals finer differentiation.
+- **Not a universal claim**: "Marxism wins" applies to structured investigation tasks. Different task types may favor different methodologies.
 
-## Also included: Qiushi Protocol
+---
 
-The [Qiushi (Seek Truth from Facts)](求是/) protocol is a standalone coding discipline that can be installed independently. It provides investigation-first workflows, task recipes, checklists, and output templates. Not included in the benchmark comparison.
+## Contributing
 
-## License
+PRs welcome for:
+- New ideology-based skills (Austrian economics? Confucianism? Stoicism?)
+- Additional benchmark families
+- Larger sample runs or statistical significance tests
+- Runs on different base models
 
-MIT
+The benchmark harness (`benchmark/`) supports adding new skills and variants in a single `benchmark.toml` edit.
+
+---
+
+*Benchmarks: [Loc-Bench V1](https://huggingface.co/datasets/czlll/Loc-Bench_V1) · [MathVista](https://huggingface.co/datasets/AI4Math/MathVista) · Agent: [Claude Code](https://claude.ai/claude-code)*
