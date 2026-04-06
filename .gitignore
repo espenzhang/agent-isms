@@ -1,12 +1,27 @@
+# macOS
+.DS_Store
+.DS_Store?
+
 # Python
 __pycache__/
 *.pyc
+*.pyo
 .venv/
+*.egg-info/
+dist/
+build/
 
-# Benchmark cache and run artifacts
+# Benchmark: large runtime artifacts (regenerate with `skill-bench run`)
 benchmark/.cache/
 benchmark/runs/
+benchmark/runs_*/
+benchmark/logs/
+benchmark/.pytest_cache/
+benchmark/.claude/
 
-# Keep reports and samples (reproducibility evidence)
+# Variant sample sets (only canonical samples/ is tracked)
+benchmark/samples_*/
+
+# Keep canonical reports and samples for reproducibility
 !benchmark/reports/
 !benchmark/samples/

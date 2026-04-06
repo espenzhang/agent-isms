@@ -1,14 +1,14 @@
 [paths]
 cache_dir = ".cache"
-samples_dir = "samples"
-runs_dir = "runs"
-reports_dir = "reports"
+samples_dir = "samples_debugbench_py"
+runs_dir = "runs_debugbench_haiku"
+reports_dir = "reports_debugbench_haiku"
 cleanup_task_workspaces = true
 
 [agent]
 type = "claude"
 model = "haiku"
-timeout_sec = 600
+timeout_sec = 300
 
 [agent.claude]
 extra_args = []
@@ -73,31 +73,11 @@ id = "all_skills"
 name = "All Skills"
 skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist"]
 
-[benchmarks.hle]
-enabled = false
-sample_size = 50
-seed = 42
-dataset_name = "cais/hle"
-split = "test"
-
-[benchmarks.mathvista]
-enabled = false
-sample_size = 50
-seed = 42
-dataset_name = "AI4Math/MathVista"
-split = "testmini"
-
 [benchmarks.debugbench]
 enabled = true
 sample_size = 30
 seed = 42
 dataset_name = "Rtian/DebugBench"
 split = "test"
-
-[benchmarks.locbench]
-enabled = false
-sample_size = 30
-seed = 42
-dataset_name = "czlll/Loc-Bench_V1"
-split = "test"
-top_k = 5
+language_filter = "python3"
+level_filter = "medium,hard"

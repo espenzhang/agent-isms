@@ -1,14 +1,14 @@
 [paths]
 cache_dir = ".cache"
-samples_dir = "samples"
-runs_dir = "runs"
-reports_dir = "reports"
+samples_dir = "samples_debugbench_py"
+runs_dir = "runs_debugbench_py"
+reports_dir = "reports_debugbench_py"
 cleanup_task_workspaces = true
 
 [agent]
-type = "codex"           # "codex" or "claude"
-model = ""
-timeout_sec = 1800
+type = "claude"
+model = "sonnet"
+timeout_sec = 300
 
 [agent.codex]
 sandbox = "danger-full-access"
@@ -43,11 +43,6 @@ id = "marxist"
 name = "Marxist Engineering Method"
 path = "../马克思/marxist-engineering-method/SKILL.md"
 
-[[skills]]
-id = "qiushi"
-name = "求是"
-path = "../求是"
-
 [[variants]]
 id = "baseline"
 name = "Baseline"
@@ -79,63 +74,15 @@ name = "Marxist Only"
 skills = ["marxist"]
 
 [[variants]]
-id = "qiushi_only"
-name = "求是 Only"
-skills = ["qiushi"]
-
-[[variants]]
 id = "all_skills"
 name = "All Skills"
-skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist", "qiushi"]
+skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist"]
 
-[benchmarks.aider_polyglot]
+[benchmarks.debugbench]
 enabled = true
-sample_size = 10
+sample_size = 30
 seed = 42
-repo_url = "https://github.com/Aider-AI/polyglot-benchmark"
-
-[benchmarks.swebench_lite]
-enabled = true
-sample_size = 10
-seed = 42
-dataset_name = "SWE-bench/SWE-bench_Lite"
+dataset_name = "Rtian/DebugBench"
 split = "test"
-
-[benchmarks.swebench_verified]
-enabled = true
-sample_size = 10
-seed = 42
-dataset_name = "SWE-bench/SWE-bench_Verified"
-split = "test"
-
-[benchmarks.terminal_bench]
-enabled = true
-sample_size = 10
-seed = 42
-repo_url = "https://github.com/harbor-framework/terminal-bench"
-task_root = "original-tasks"
-tb_output_dir = "tb_runs"
-tb_cleanup = true
-tb_n_concurrent = 1
-
-[benchmarks.mathvista]
-enabled = true
-sample_size = 50
-seed = 42
-dataset_name = "AI4Math/MathVista"
-split = "testmini"
-
-[benchmarks.simpleqa_verified]
-enabled = true
-sample_size = 100
-seed = 42
-dataset_name = "google/simpleqa-verified"
-dataset_config = "simpleqa_verified"
-split = "eval"
-
-[benchmarks.hle]
-enabled = true
-sample_size = 100
-seed = 42
-dataset_name = "cais/hle"
-split = "test"
+language_filter = "python3"
+level_filter = "medium,hard"

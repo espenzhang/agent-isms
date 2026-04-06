@@ -56,7 +56,7 @@ uv run skill-bench report --config benchmark.toml
 
 `SWE-bench` and `Terminal-Bench` require Docker. On this machine the harness is
 configured to work with `colima`, and the evaluation layer exports
-`DOCKER_HOST=unix:///Users/espen/.colima/default/docker.sock` automatically when
+`DOCKER_HOST=unix://~/.colima/default/docker.sock` automatically when
 calling Docker-based backends.
 
 Useful checks:

@@ -8,6 +8,7 @@ import base64
 import difflib
 import json
 import mimetypes
+import os
 import re
 import shutil
 import subprocess
@@ -806,6 +807,15 @@ class MathVistaBenchmark(QABenchmark):
 
     def _sample_rows(self, app: AppConfig, benchmark: BenchmarkConfig) -> list[dict]:
         rows = self._load_rows(benchmark)
+
+        # Optional: restrict to a specific task type (e.g., "math word problem")
+        task_filter = benchmark.options.get("task_filter")
+        if task_filter:
+            rows = [
+                r for r in rows
+                if (r.get("metadata") or {}).get("task", r.get("task", "")) == task_filter
+            ]
+
         image_dir = ensure_dir(app.paths.cache_dir / "mathvista_images")
         sampled_rows = stable_sample(rows, benchmark.sample_size, benchmark.seed)
         tasks: list[dict] = []
@@ -928,6 +938,16 @@ class DebugBenchBenchmark(BenchmarkAdapter):
 
     def sample(self, app: AppConfig, benchmark: BenchmarkConfig) -> list[dict]:
         rows = self._load_rows(benchmark)
+
+        # Optional filters: restrict by language and/or level
+        lang_filter = benchmark.options.get("language_filter")
+        level_filter = benchmark.options.get("level_filter")  # e.g., "medium,hard"
+        if lang_filter:
+            rows = [r for r in rows if r.get("language", "") == lang_filter]
+        if level_filter:
+            allowed = {l.strip() for l in level_filter.split(",")}
+            rows = [r for r in rows if r.get("level", "") in allowed]
+
         sampled = stable_sample(rows, benchmark.sample_size, benchmark.seed)
         tasks: list[dict] = []
         for row in sampled:
@@ -1182,7 +1202,7 @@ Return the FIXED code in the JSON schema only. Write complete, working code.
     }
     """)
 
-    _JAVA_HOME = "/Users/espen/.local/jdk/jdk-21.0.10+7/Contents/Home"
+    _JAVA_HOME = os.environ.get("JAVA_HOME", "/usr/local/jdk/Contents/Home")
 
     # ---- driver generation -------------------------------------------------
 
@@ -1555,6 +1575,18 @@ class LocBenchBenchmark(BenchmarkAdapter):
 
     def sample(self, app: AppConfig, benchmark: BenchmarkConfig) -> list[dict]:
         rows = self._load_rows(benchmark)
+
+        # Optional: restrict to tasks requiring at least N gold files (harder subset)
+        min_gold_files = int(benchmark.options.get("min_gold_files", 1))
+        if min_gold_files > 1:
+            filtered = []
+            for row in rows:
+                edit_fns = row.get("edit_functions") or []
+                gf = sorted({fn.rsplit(":", 1)[0] for fn in edit_fns if ":" in fn})
+                if len(gf) >= min_gold_files:
+                    filtered.append(row)
+            rows = filtered
+
         sampled = stable_sample(rows, benchmark.sample_size, benchmark.seed)
         tasks: list[dict] = []
         for row in sampled:

@@ -1,43 +1,61 @@
 # Ideology-Driven AI Agents
 
-We gave AI agents five ideological frameworks — Marxism, Pragmatism, Keynesian Economics, Evolutionary Darwinism, and Taylorism — and measured their performance on real engineering benchmarks.
+**[中文版本](README_ZH.md)**
 
-**Socialism won.**
+We gave AI coding agents five different ideological frameworks — Marxism, Pragmatism, Keynesianism, Evolutionary thinking, and Taylorism — as structured system prompts, then ran them through real engineering benchmarks to see what happened.
+
+**Marxism came out on top.**
+
+This repo contains the methodology prompts (`SKILL.md` files), the benchmark harness, and the full results.
 
 ---
 
 ## Results
 
-### Fault Localization (Loc-Bench V1, n=30)
+### Fault Localization — Loc-Bench V1 (30 real GitHub issues)
 
-Given a GitHub issue, identify which files need to be edited. Scored by Acc@5: the agent predicts 5 files, and passes if every gold-standard file appears in the list.
+Given a bug report, predict which files need to be changed. Passes if all gold-standard files appear in the model's top-5 predictions (Acc@5).
 
-| Rank | Ideology | Pass Rate | vs Baseline |
-|------|----------|-----------|-------------|
-| 🥇 1 | **Marxist Engineering** | **50.0%** | **+6.7 pts** |
-| 2 | Pragmatist Engineering | 46.7% | +3.3 pts |
-| 2 | Taylorist Execution | 46.7% | +3.3 pts |
-| 2 | All Skills Combined | 46.7% | +3.3 pts |
-| 5 | Baseline (no skill) | 43.3% | — |
-| 5 | Evolutionary Execution | 43.3% | ±0.0 pts |
-| 7 | Keynesian Engineer | 36.7% | **-6.7 pts** |
+```
+Marxist      ████████████████████████████████░░░░░░░░  50.0%  +6.7 pts  ← #1
+Pragmatist   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+Taylorist    ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+All Skills   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+─────────────────────────────────────── baseline ──────────────────────
+Baseline     ████████████████████████████░░░░░░░░░░░░  43.3%
+Evolutionary ████████████████████████████░░░░░░░░░░░░  43.3%   0.0 pts
+Keynesian    ████████████████████████░░░░░░░░░░░░░░░░  36.7%  -6.7 pts
+```
 
-**4 out of 5 individual skill frameworks beat the no-skill baseline. Marxism leads by 3.3 points over the next-best ideologies.**
+4 out of 5 individual frameworks beat the no-skill baseline. Marxism leads by 3.3 points over the next-best.
 
-### Math & Visual Reasoning (MathVista, n=50)
+### Visual Math Reasoning — MathVista (50 problems)
 
-Multimodal math reasoning — no code repositories involved, pure deduction.
+Pure multimodal reasoning, no code repositories involved.
 
-| Rank | Ideology | Pass Rate | vs Baseline |
-|------|----------|-----------|-------------|
-| 🥇 1 | **Marxist Engineering** | **84.0%** | **+2.0 pts** |
-| 2 | Baseline (no skill) | 82.0% | — |
-| 2 | Keynesian Engineer | 82.0% | ±0.0 pts |
-| 2 | Pragmatist Engineering | 82.0% | ±0.0 pts |
-| 5 | Evolutionary Execution | 80.0% | -2.0 pts |
-| 5 | Taylorist Execution | 80.0% | -2.0 pts |
+```
+Marxist      █████████████████████████████████████████░  84.0%  +2.0 pts  ← #1
+All Skills   █████████████████████████████████████████   82.0%
+Baseline     █████████████████████████████████████████   82.0%
+Keynesian    █████████████████████████████████████████   82.0%
+Pragmatist   █████████████████████████████████████████   82.0%
+Evolutionary ████████████████████████████████████████░   80.0%  -2.0 pts
+Taylorist    ████████████████████████████████████████░   80.0%  -2.0 pts
+```
 
-**Marxism is the only framework that improves performance on both code investigation and mathematical reasoning.**
+Marxism is the only framework that improves on both code investigation and mathematical reasoning.
+
+### Other Benchmarks
+
+| Benchmark | Best Skill | Best Score | Baseline | Notes |
+|-----------|-----------|-----------|---------|-------|
+| DebugBench | Taylorist | 80.0% | 76.7% | +3.3 pts |
+| Aider Polyglot | (tied) | 80.0% | 80.0% | No effect; tasks too easy |
+| SimpleQA | Evolutionary | 14.0% | 13.0% | Marginal; most skills hurt |
+| SWE-bench Lite | Baseline/Pragmatist | 80.0% | 80.0% | Small sample (n=10) |
+| HLE | — | 0.0% | 0.0% | All variants failed; too hard |
+
+Full data: [`benchmark/reports/summary.md`](benchmark/reports/summary.md)
 
 ---
 
@@ -45,99 +63,113 @@ Multimodal math reasoning — no code repositories involved, pure deduction.
 
 The Marxist engineering method translates dialectical materialism into a concrete investigation procedure:
 
-1. **Start from material conditions (唯物主义)** — inspect the actual repository structure before forming any theory. Do not trust prior knowledge about how a library is organized.
-2. **Trace universal connections (普遍联系)** — follow import chains in both directions; the root cause is often one step upstream or downstream from the obvious symptom file.
-3. **Find the principal contradiction (主要矛盾)** — among all candidate files, identify the one that *owns* the failing mechanism, not just the one where the error surfaces.
-4. **Verify with evidence** — never claim a file is responsible unless you have found it through actual search, not assumption.
+1. **Start from material conditions (唯物主义)** — inspect the actual repository structure before forming any theory. No guessing file paths from memory or from the issue text alone.
+2. **Trace universal connections (普遍联系)** — follow import chains upstream and downstream; check base classes (`generic.py`, `_base.py`), not just the subclass where the error surfaced.
+3. **Find the principal contradiction (主要矛盾)** — among all candidate files, identify the one that *owns* the failing mechanism, not just the one where the symptom shows up.
+4. **Verify with evidence** — never include a file unless you have found it through actual search, not assumption.
 
-The **mandatory material investigation** is the key differentiator. Where other frameworks allow the agent to reason from training-data knowledge, the Marxist method forbids it: _you must inspect this specific repository, at this specific commit, before predicting anything_.
+The key was making material investigation **mandatory**. Other frameworks allow the agent to answer from training-data knowledge. The Marxist method explicitly forbids it: *you must inspect this specific repository, at this specific commit, before predicting anything.*
 
 ---
 
 ## Why Most Ideologies Still Help
 
-Fault localization is an investigation task. Any framework that structures the investigation — naming the entities to search for, specifying the order of operations, excluding noise files — tends to improve over unstructured baseline behavior.
+Fault localization is an investigation task. Any framework that structures the investigation — naming the entities to search for, specifying the order of operations, excluding noise files — tends to beat unstructured baseline behavior.
 
-**Pragmatism (+3.3 pts):** "Translate claims into consequences; prefer the cheapest next step" biases the agent toward concrete file searches and away from broad speculation. The rule to prefer parent class files (`generic.py`, `_base.py`) over subclass files also helps with large ORM and data-science codebases.
+**Pragmatism (+3.3 pts):** Concrete over abstract. The rule to prefer parent class files (`generic.py`) over subclass files (`frame.py`) turns out to be practically valuable in large Python codebases.
 
-**Taylorism (+3.3 pts):** The instruction-card format and explicit step-by-step decomposition keep the agent on track. Scientific management, applied to file search, turns out to be efficient.
+**Taylorism (+3.3 pts):** Explicit step-by-step decomposition keeps the agent on task. Scientific management, applied to file search, is efficient.
 
-## Why Keynesianism Hurts
-
-The Keynesian "multiplier heuristic" — prioritize files imported by many others — leads the agent toward widely-used infrastructure files rather than the specific defect location. A shared utility imported by 50 modules is almost never where the bug lives. The multiplier ranking systematically misfires on fault localization, costing 6.7 percentage points.
+**Keynesianism (-6.7 pts):** The multiplier heuristic — rank files by how many other files import them — systematically misfires. A widely-imported utility module is almost never where the specific bug lives.
 
 ---
 
 ## The Skills
 
-Each ideology is packaged as a standalone `SKILL.md` installable in Claude Code, Codex, or any agent that accepts a system prompt.
+Each is a standalone `SKILL.md` file, usable in Claude Code, Codex, or any agent that accepts a system prompt prefix.
 
-| Skill | Philosophy | Loc-Bench |
-|-------|------------|-----------|
-| [Marxist Engineering Method](马克思/marxist-engineering-method/SKILL.md) | Dialectical materialism: material conditions → contradiction mapping → connection tracing | **+6.7 pts** |
-| [Pragmatist Engineering](实用主义/pragmatist-engineering/SKILL.md) | William James: translate claims into consequences, prefer the cheapest next step | +3.3 pts |
-| [Taylorist Execution](泰勒主义/SKILL.md) | Scientific management: study before acting, explicit standards, instruction cards | +3.3 pts |
-| [Evolutionary Execution](社会达尔文主义-演化/evolutionary-execution/SKILL.md) | Variation-selection-retention: generate options, select by evidence, retain gains | ±0 pts |
-| [Keynesian Engineer](凯恩斯主义/keynesian-engineer/SKILL.md) | Effective demand, multiplier effects, active intervention under uncertainty | -6.7 pts |
+| Skill | Directory | Core Idea | Loc-Bench |
+|-------|-----------|-----------|-----------|
+| Marxist Engineering | [`马克思/marxist-engineering-method/`](马克思/marxist-engineering-method/) | Material conditions first, find the principal contradiction | **+6.7 pts** |
+| Pragmatist Engineering | [`实用主义/pragmatist-engineering/`](实用主义/pragmatist-engineering/) | Translate claims into consequences, prefer the cheapest next step | +3.3 pts |
+| Taylorist Execution | [`泰勒主义/`](泰勒主义/) | Study before acting, explicit instruction cards | +3.3 pts |
+| Evolutionary Execution | [`社会达尔文主义-演化/evolutionary-execution/`](社会达尔文主义-演化/evolutionary-execution/) | Verify every path exists before including it | ±0 pts |
+| Keynesian Engineer | [`凯恩斯主义/keynesian-engineer/`](凯恩斯主义/) | Effective demand, multiplier ranking | -6.7 pts |
+| Qiushi (求是) | [`求是/`](求是/) | Seek truth from facts; general project work | not benchmarked |
+
+Each skill directory contains the main `SKILL.md` and a `references/` folder with the philosophical grounding (also included in the prompt, space permitting).
 
 ---
 
-## Install a Skill
+## Using a Skill
 
 ### Claude Code
 
+Copy the skill into your project and reference it in `CLAUDE.md`:
+
 ```bash
-# Copy the winning skill to your project
 cp 马克思/marxist-engineering-method/SKILL.md ./SKILL.md
 ```
 
-Then reference it in your project's `CLAUDE.md`:
-
 ```markdown
+# CLAUDE.md
 @./SKILL.md
 ```
 
 ### Any Agent (system prompt)
 
-Prepend the `SKILL.md` content to your system prompt. The skill files are plain Markdown with no external dependencies.
+The `SKILL.md` files are plain Markdown. Prepend the content to your system prompt — no external dependencies, no special format required.
 
 ---
 
-## Reproduce the Benchmarks
+## Reproducing the Benchmarks
+
+Requirements: Python 3.11+, [uv](https://github.com/astral-sh/uv), `ANTHROPIC_API_KEY` in your environment.
 
 ```bash
-cd benchmark
+git clone https://github.com/your-username/methodology
+cd methodology/benchmark
 uv sync
 
-# Fault localization (runs via claude -p)
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant baseline
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant marxist_only
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant pragmatist_only
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant taylorism_only
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant keynesian_only
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant evolutionary_only
-uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant all_skills
+# Run all variants (fault localization, ~$5–10 in API costs)
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench
 
-# Generate report
+# Or run a single variant
+uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant marxist_only
+
+# Regenerate reports
 uv run skill-bench report --config benchmark.locbench.toml
 ```
 
-Results appear in `benchmark/reports/summary.md` and `benchmark/reports/dashboard.html`.
+The runner caches per-task results — if a run is interrupted, restarting picks up where it left off.
+
+---
+
+## Repository Layout
+
+```
+methodology/
+├── 马克思/marxist-engineering-method/      Marxist skill + philosophical references
+├── 实用主义/pragmatist-engineering/        Pragmatist skill
+├── 凯恩斯主义/keynesian-engineer/          Keynesian skill
+├── 社会达尔文主义-演化/evolutionary-execution/  Evolutionary skill
+├── 泰勒主义/                               Taylorist skill
+├── 求是/                                  Qiushi skill (general project use)
+└── benchmark/
+    ├── skill_bench/                       Benchmark runner source (Python)
+    ├── benchmark.*.toml                   Per-benchmark configuration
+    ├── samples/                           Sampled tasks (30–100 per benchmark)
+    └── reports/                           Results: summary.md, dashboard.html, leaderboard.csv
+```
 
 ---
 
 ## Caveats
 
-- **Small sample sizes** (n=30 locbench, n=50 mathvista). Results are directionally consistent but not statistically definitive.
-- **Model-dependent**: All locbench runs used Claude Sonnet via `claude -p`. Results may differ on other models.
-- **Task specificity**: "Marxism wins on fault localization" does not generalize to all engineering tasks. SimpleQA (factual recall) and SWE-Bench (code generation) show smaller or mixed effects.
-- **Skill content matters more than label**: The improvements come from the specific investigation procedures embedded in each skill file, not from the ideology per se.
-
----
-
-## Full Benchmark Results
-
-See [`benchmark/reports/summary.md`](benchmark/reports/summary.md) for complete tables across all benchmarks.
+- **Small samples.** n=30 for locbench, n=50 for mathvista. Results are directionally consistent but not statistically conclusive.
+- **Model-specific.** All runs used Claude Sonnet. Results may differ on other models or with different temperatures.
+- **Task-type matters.** Marxism wins on fault localization and math reasoning. On factual recall (SimpleQA) and pure code generation (SWE-bench), effects are smaller or reversed.
+- **The label is incidental.** What actually drives the improvement is the specific investigation procedure embedded in each file — not the ideological brand.
 
 ---
 

@@ -16,27 +16,27 @@ extra_args = []
 [[skills]]
 id = "taylorism"
 name = "Taylorism"
-path = "/Users/espen/Desktop/methodology/泰勒主义/SKILL.md"
+path = "../泰勒主义/SKILL.md"
 
 [[skills]]
 id = "keynesian"
 name = "Keynesian Engineer"
-path = "/Users/espen/Desktop/methodology/凯恩斯主义/keynesian-engineer/SKILL.md"
+path = "../凯恩斯主义/keynesian-engineer/SKILL.md"
 
 [[skills]]
 id = "pragmatist"
 name = "Pragmatist Engineering"
-path = "/Users/espen/Desktop/methodology/实用主义/pragmatist-engineering/SKILL.md"
+path = "../实用主义/pragmatist-engineering/SKILL.md"
 
 [[skills]]
 id = "evolutionary"
 name = "Evolutionary Execution"
-path = "/Users/espen/Desktop/methodology/社会达尔文主义-演化/evolutionary-execution/SKILL.md"
+path = "../社会达尔文主义-演化/evolutionary-execution/SKILL.md"
 
 [[skills]]
 id = "marxist"
 name = "Marxist Engineering Method"
-path = "/Users/espen/Desktop/methodology/马克思/marxist-engineering-method/SKILL.md"
+path = "../马克思/marxist-engineering-method/SKILL.md"
 
 [[variants]]
 id = "baseline"
