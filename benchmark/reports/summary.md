@@ -39,13 +39,13 @@
 
 | Rank | Variant | Pass Rate | Delta vs Baseline | Passed | Failed | Skipped |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| 1 | baseline | 96.7% | +0.0 pts | 29 | 1 | 0 |
-| 2 | marxist_only | 96.7% | +0.0 pts | 29 | 1 | 0 |
-| 3 | pragmatist_only | 96.7% | +0.0 pts | 29 | 1 | 0 |
-| 4 | all_skills | 86.7% | -10.0 pts | 26 | 4 | 0 |
-| 5 | evolutionary_only | 86.7% | -10.0 pts | 26 | 4 | 0 |
-| 6 | keynesian_only | 86.7% | -10.0 pts | 26 | 4 | 0 |
-| 7 | taylorism_only | 80.0% | -16.7 pts | 24 | 6 | 0 |
+| 1 | marxist_only | 50.0% | +6.7 pts | 15 | 15 | 0 |
+| 2 | all_skills | 46.7% | +3.3 pts | 14 | 16 | 0 |
+| 3 | pragmatist_only | 46.7% | +3.3 pts | 14 | 16 | 0 |
+| 4 | taylorism_only | 46.7% | +3.3 pts | 14 | 16 | 0 |
+| 5 | baseline | 43.3% | +0.0 pts | 13 | 17 | 0 |
+| 6 | evolutionary_only | 43.3% | +0.0 pts | 13 | 17 | 0 |
+| 7 | keynesian_only | 36.7% | -6.7 pts | 11 | 19 | 0 |
 
 ## mathvista
 
@@ -106,13 +106,13 @@
 | hle | marxist_only | 50 | 0 | 50 | 0 |
 | hle | pragmatist_only | 50 | 0 | 50 | 0 |
 | hle | taylorism_only | 50 | 0 | 50 | 0 |
-| locbench | all_skills | 30 | 26 | 4 | 0 |
-| locbench | baseline | 30 | 29 | 1 | 0 |
-| locbench | evolutionary_only | 30 | 26 | 4 | 0 |
-| locbench | keynesian_only | 30 | 26 | 4 | 0 |
-| locbench | marxist_only | 30 | 29 | 1 | 0 |
-| locbench | pragmatist_only | 30 | 29 | 1 | 0 |
-| locbench | taylorism_only | 30 | 24 | 6 | 0 |
+| locbench | all_skills | 30 | 14 | 16 | 0 |
+| locbench | baseline | 30 | 13 | 17 | 0 |
+| locbench | evolutionary_only | 30 | 13 | 17 | 0 |
+| locbench | keynesian_only | 30 | 11 | 19 | 0 |
+| locbench | marxist_only | 30 | 15 | 15 | 0 |
+| locbench | pragmatist_only | 30 | 14 | 16 | 0 |
+| locbench | taylorism_only | 30 | 14 | 16 | 0 |
 | mathvista | all_skills | 50 | 41 | 9 | 0 |
 | mathvista | baseline | 50 | 41 | 9 | 0 |
 | mathvista | evolutionary_only | 50 | 40 | 10 | 0 |

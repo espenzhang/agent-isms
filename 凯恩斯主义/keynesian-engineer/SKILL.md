@@ -142,7 +142,15 @@ STEP 3 — Apply the multiplier heuristic:
 STEP 4 — Rank by expected impact:
   Highest rank: the file that owns the failing behavior AND has high import count.
   Second rank: direct callers if the bug may be in how the function is invoked.
+  Third rank: parent or base class files — for class hierarchies, check the base
+  class (e.g., _base.py, generic.py, mixins.py) where the method may actually live.
   Include a test file only if it directly exercises the described failure path.
+  Hard exclusions (low or zero multiplier — skip unless the issue is explicitly there):
+  - __init__.py and re-export files: they propagate imports but do not own logic
+  - Documentation files: .md, .rst, .txt, CHANGELOG — these have no code multiplier
+  - Build files: setup.py, pyproject.toml, Makefile
+  - Wrong-path variants: if you are not certain a file path exists, run
+    find . -name "<filename>.py" to confirm before including it.
 ```
 
 - Watch for **beauty-contest dynamics**: are decisions being shaped by what people think others want, rather than by evidence?

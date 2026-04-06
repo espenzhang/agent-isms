@@ -5,6 +5,23 @@ description: Apply a Marxist, practice-first and contradiction-aware method to e
 
 # Marxist Engineering Method
 
+## REQUIRED: Start From Material Reality — Do Not Answer From Memory
+
+Before predicting any files, you MUST execute actual search commands on this specific repository. Do not rely on your general knowledge of how a library organizes its source code. Every repository commit may differ from what you have seen in training. A path that exists in one version may not exist in another.
+
+**Mandatory first actions (non-negotiable):**
+1. Run `find . -type d | head -40` to see the actual directory structure.
+2. Run `grep -r "<key_class_or_function_from_issue>" --include="*.py" -l | head -10` for each concrete entity named in the issue.
+3. Read the 1-2 most relevant files found.
+
+Then proceed to predict files based on what you FOUND, not what you assume.
+
+**Hard rules:**
+- NEVER include `__init__.py` or re-export files — they forward symbols but own no logic.
+- NEVER include a path you have not verified exists in this repository's actual file tree.
+- NEVER include documentation files (`.md`, `.rst`, `README`, `CHANGELOG`).
+- For repositories you know well (pandas, ray, django, etc.): your memory of their file paths may be wrong for THIS SPECIFIC COMMIT. Always run `find` first.
+
 ## Core Orientation
 
 Use this skill to turn Marxist methodology into an engineering workflow: begin from concrete conditions, identify contradictions, find the principal contradiction, act in a practice-first way, and revise understanding through verification.
@@ -117,6 +134,8 @@ Inspect the actual structure of the repository before forming any theory:
 - Note which directories correspond to which subsystems.
 The material structure of the codebase determines where bugs can live. Do not skip this step.
 
+**Critical**: Do not rely on prior knowledge about how a library organizes its source code. The actual repository structure may differ from what you know from documentation, PyPI, or GitHub. A path like `python/ray/dashboard/` may not exist in this repo — it might be `dashboard/` at the root. Only use paths that appear in the actual `find` output.
+
 **Step 2 — Extract concrete entities from the issue.**
 Read the problem statement carefully. List explicitly:
 - Every class name, function name, method name, module name, or file name mentioned.
@@ -127,12 +146,16 @@ Read the problem statement carefully. List explicitly:
 For every entity identified in Step 2:
 - Run `grep -r "EntityName" --include="*.py" -l` (adapt extension to the repo language) to find all files containing it.
 - Read the most relevant files to understand what mechanism they implement.
+- For function names (e.g., `get_dummies`, `_construct_face_centroids`): additionally run `grep -r "def <function_name>" --include="*.py" -l` to find every file where the function is **defined** — not just used. Large codebases often define the same function in both a concrete module AND a parent/base class (e.g., `generic.py` or `_base.py`), and the parent definition may also need to change.
 
 **Step 4 — Trace universal connections (the decisive step).**
 This is the step that separates appearance from essence. The file that shows the error is often not the file that must change. For each top candidate from Step 3:
 - Run `grep -r "import.*<module_name>\|from.*<module_name>" --include="*.py" -l` to find every file that imports this candidate. These are upstream dependents — bugs in shared modules surface here.
 - Look inside the candidate file itself: `grep "^import\|^from" <candidate_file>` to see what it depends on. One of those dependencies may be the true source.
 - Build a two-level map: what does this file import? Who imports this file?
+- **For class-based frameworks (Django, scikit-learn, SQLAlchemy, etc.)**: run `grep -r "class.*(<BaseClass>)" --include="*.py" -l` to find the base class that defines the method. The actual mechanism often lives in a base class file (e.g., `_base.py`, `generic.py`, `mixins.py`), not in the subclass that surfaced the error. Always verify the inheritance chain.
+- **For performance, caching, or N+1 query issues**: trace the call chain UPSTREAM to views, API endpoints, request handlers, and command entry points (these callers often need to add `.select_related()`, caching, or batching logic). Also trace DOWNSTREAM to the external system adapter files — database handlers, API clients, reader classes — where the excessive calls are actually made. Run `grep -r "class.*DB\|class.*Handler\|class.*Client\|class.*Reader" --include="*.py" -l | head -10` to locate adapter files. Both the entry point and the adapter may need changes.
+- **For features with a compat/adapter layer**: check if there is a compatibility or adapter file in an adjacent subsystem (e.g., `scipy_compat/fft.py` when `core/fft.py` is the principal file). Use `grep -r "ClassName\|function_name" --include="*.py" -l` across the full repo to find all files that directly use the principal mechanism and may need parallel changes.
 
 **Step 5 — Identify the principal file (the root contradiction).**
 Among all candidates, name the one file that:
@@ -145,7 +168,15 @@ This is the principal file — the location of the principal contradiction. The 
 Order your remaining top-4 candidates by how directly they relate to the principal file:
 - Direct callers/importers of the principal file rank higher.
 - Files that implement related but secondary mechanisms rank lower.
-- Include a test file if a test directly exercises the failing path.
+- Include a test file only if it directly exercises the failing path.
+
+**Material exclusions** — do not include these unless the issue explicitly requires them:
+- `__init__.py` and re-export-only files: these forward symbols but do not own logic; fixes almost never belong here.
+- `setup.py`, `pyproject.toml`, and configuration-only files.
+- Documentation files (`.md`, `.rst`, `.txt`, `CHANGELOG`, `README`).
+- Frontend templates or static asset files when the issue is in backend logic.
+
+If a slot would otherwise be filled by one of the above, look for a concrete implementation file instead: a module configuration file (e.g., `config.py`, `settings.py` in the same directory), a compatibility adapter or wrapper in an adjacent subsystem, or a test file that directly exercises the failure path.
 
 **Step 7 — Verify with evidence before finalizing.**
 For each of your 5 predictions, state the specific evidence:
@@ -153,6 +184,8 @@ For each of your 5 predictions, state the specific evidence:
 - What specific code pattern (import, function call, class definition) connects it to the described symptom?
 
 Do not include a file in your top-5 unless you have read it or read something that imports/is imported by it.
+
+**Path verification (material conditions check)**: For any file whose exact path you are not certain of, run `find . -name "<filename>.py"` or `find . -path "*<dirname>*" -name "*.py" | head -20` to confirm the file exists at that exact path before including it. If a file does not appear in the repository's actual file tree, do not include it — replace it with the next best confirmed candidate.
 
 ### General Research Procedure
 

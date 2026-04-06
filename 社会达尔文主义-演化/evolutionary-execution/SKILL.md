@@ -101,6 +101,10 @@ STEP 1 — Generate candidate theories (variation):
 STEP 2 — List the repository structure:
   find . -type f \( -name "*.py" -o -name "*.ts" -o -name "*.js" \) | head -60
   Identify which directories correspond to which theory.
+  CRITICAL: Record the EXACT directory and module names from this output.
+  Do not assume directory names from the issue description — trust only what
+  the filesystem listing shows. For example, the repo may use "spec_decode/"
+  not "speculative_decoding/", or "qt/" not "ui/". Use only paths you observed.
 
 STEP 3 — Probe each theory (selection):
   For each theory, run one targeted search:
@@ -114,6 +118,12 @@ STEP 4 — Eliminate weak variants:
 STEP 5 — Retain the fittest candidates:
   Rank surviving candidate files by strength of evidence.
   Fill remaining spots from the best-evidenced theories.
+  PATH INTEGRITY CHECK: Every file path in your final answer must appear in the
+  directory listing from STEP 2 or be confirmed by a grep result from STEP 3.
+  Do not invent or construct file paths from naming assumptions.
+  If unsure, run: find . -name "<suspected_filename>.py" to verify existence.
+  Do NOT include documentation files (.md, .rst, .txt), __init__.py re-export
+  files, or build/configuration files unless the issue is explicitly about those.
 ```
 3. Select against low-signal material.
    Prefer primary sources, direct evidence, recent data, and sources that change the decision.

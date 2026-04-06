@@ -95,6 +95,17 @@ STEP 4 — Stop when you have enough:
   via direct search), stop. Do not search further.
   Rank by directness: the file that most directly implements the described
   failing behavior ranks first.
+  Practical exclusions (avoid unless the issue explicitly involves these):
+  - __init__.py and re-export files: they have no direct fix location
+  - Documentation files (.md, .rst, .txt): not executable code
+  - Duplicate files: never include the same file path twice
+  For class hierarchies, prefer the PARENT class file (e.g., generic.py, _base.py,
+  base_model.py) over subclass files (e.g., frame.py, specific_model.py) when the
+  method or mechanism is defined in the parent. Check with:
+  grep -n "def <method_name>" <parent_file>
+  For module-level implementations (e.g., caching, planning, allocation), check if
+  there is a companion config file (e.g., config.py, settings.py, options.py) in
+  the same directory that stores the relevant settings — these often need changes too.
 ```
 
 When uncertainty is high and cannot be cheaply resolved, classify the decision:

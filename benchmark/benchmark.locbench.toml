@@ -80,3 +80,4 @@ seed = 42
 dataset_name = "czlll/Loc-Bench_V1"
 split = "test"
 top_k = 5
+min_gold_files = 2
