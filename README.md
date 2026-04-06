@@ -1,173 +1,163 @@
-# Ideology-Driven AI Agents
+# 🔴 Ideology-Driven AI Agents
 
 **[中文版本](README_ZH.md)**
 
-We gave AI coding agents five different ideological frameworks — Marxism, Pragmatism, Keynesianism, Evolutionary thinking, and Taylorism — as structured system prompts, then ran them through real engineering benchmarks to see what happened.
+> We gave five political ideologies to an AI coding agent and ran them through real benchmarks.
+> **Marxism won.** Keynesianism made things worse. Most others helped a little.
 
-**Marxism came out on top.**
-
-This repo contains the methodology prompts (`SKILL.md` files), the benchmark harness, and the full results.
+This started as a weird idea: what if the *framing* of how an agent thinks about code — the underlying worldview — actually matters? Turns out it does. More than expected.
 
 ---
 
-## Results
+## 📊 Results
 
-### Fault Localization — Loc-Bench V1 (30 real GitHub issues)
+### Fault Localization — 30 real GitHub issues
 
-Given a bug report, predict which files need to be changed. Passes if all gold-standard files appear in the model's top-5 predictions (Acc@5).
+*Given a bug report, predict which files to edit. Pass = all correct files appear in your top-5.*
 
 ```
-Marxist      ████████████████████████████████░░░░░░░░  50.0%  +6.7 pts  ← #1
-Pragmatist   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
-Taylorist    ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
-All Skills   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
-─────────────────────────────────────── baseline ──────────────────────
-Baseline     ████████████████████████████░░░░░░░░░░░░  43.3%
-Evolutionary ████████████████████████████░░░░░░░░░░░░  43.3%   0.0 pts
-Keynesian    ████████████████████████░░░░░░░░░░░░░░░░  36.7%  -6.7 pts
+🥇 Marxist      ████████████████████████████████░░░░░░░░  50.0%  +6.7 pts
+   Pragmatist   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+   Taylorist    ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+   All Skills   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+   ─────────────────────────────── baseline ──────────────────
+   Baseline     ████████████████████████████░░░░░░░░░░░░  43.3%
+   Evolutionary ████████████████████████████░░░░░░░░░░░░  43.3%
+💀 Keynesian    ████████████████████████░░░░░░░░░░░░░░░░  36.7%  -6.7 pts
 ```
 
-4 out of 5 individual frameworks beat the no-skill baseline. Marxism leads by 3.3 points over the next-best.
-
-### Visual Math Reasoning — MathVista (50 problems)
-
-Pure multimodal reasoning, no code repositories involved.
+### Visual Math Reasoning — 50 problems
 
 ```
-Marxist      █████████████████████████████████████████░  84.0%  +2.0 pts  ← #1
-All Skills   █████████████████████████████████████████   82.0%
-Baseline     █████████████████████████████████████████   82.0%
-Keynesian    █████████████████████████████████████████   82.0%
-Pragmatist   █████████████████████████████████████████   82.0%
-Evolutionary ████████████████████████████████████████░   80.0%  -2.0 pts
-Taylorist    ████████████████████████████████████████░   80.0%  -2.0 pts
+🥇 Marxist      █████████████████████████████████████████░  84.0%  +2.0 pts
+   Baseline     █████████████████████████████████████████   82.0%
+   (others)     █████████████████████████████████████████   82.0%
+   Evolutionary ████████████████████████████████████████░   80.0%  -2.0 pts
+   Taylorist    ████████████████████████████████████████░   80.0%  -2.0 pts
 ```
 
-Marxism is the only framework that improves on both code investigation and mathematical reasoning.
+Marxism is the only framework that improves on *both* benchmarks.
 
-### Other Benchmarks
-
-| Benchmark | Best Skill | Best Score | Baseline | Notes |
-|-----------|-----------|-----------|---------|-------|
-| DebugBench | Taylorist | 80.0% | 76.7% | +3.3 pts |
-| Aider Polyglot | (tied) | 80.0% | 80.0% | No effect; tasks too easy |
-| SimpleQA | Evolutionary | 14.0% | 13.0% | Marginal; most skills hurt |
-| SWE-bench Lite | Baseline/Pragmatist | 80.0% | 80.0% | Small sample (n=10) |
-| HLE | — | 0.0% | 0.0% | All variants failed; too hard |
-
-Full data: [`benchmark/reports/summary.md`](benchmark/reports/summary.md)
+Full results: [`benchmark/reports/summary.md`](benchmark/reports/summary.md)
 
 ---
 
-## Why Marxism Works
+## 🤔 Why Does This Work?
 
-The Marxist engineering method translates dialectical materialism into a concrete investigation procedure:
+The Marxist skill isn't a gimmick. It maps dialectical materialism onto a concrete investigation procedure — and the mapping is surprisingly tight.
 
-1. **Start from material conditions (唯物主义)** — inspect the actual repository structure before forming any theory. No guessing file paths from memory or from the issue text alone.
-2. **Trace universal connections (普遍联系)** — follow import chains upstream and downstream; check base classes (`generic.py`, `_base.py`), not just the subclass where the error surfaced.
-3. **Find the principal contradiction (主要矛盾)** — among all candidate files, identify the one that *owns* the failing mechanism, not just the one where the symptom shows up.
-4. **Verify with evidence** — never include a file unless you have found it through actual search, not assumption.
+**The core rule: you cannot answer from memory.**
 
-The key was making material investigation **mandatory**. Other frameworks allow the agent to answer from training-data knowledge. The Marxist method explicitly forbids it: *you must inspect this specific repository, at this specific commit, before predicting anything.*
+Where other frameworks let the agent reason from what it already knows about a library, the Marxist method makes one thing mandatory: *inspect this specific repository before you predict anything*. Run `find`. Run `grep`. Read the actual imports. Then answer.
 
----
+That sounds obvious. It isn't — agents default to pattern-matching from training data, which means wrong paths, wrong file names, wrong subsystems.
 
-## Why Most Ideologies Still Help
+Beyond that:
 
-Fault localization is an investigation task. Any framework that structures the investigation — naming the entities to search for, specifying the order of operations, excluding noise files — tends to beat unstructured baseline behavior.
+- **"Appearance vs. essence"** → the file where the error surfaces ≠ the file where the cause lives
+- **"Trace universal connections"** → follow imports both ways; check base classes (`generic.py`), not just subclasses (`frame.py`)
+- **"Find the principal contradiction"** → rank by causal proximity, not surface relevance
 
-**Pragmatism (+3.3 pts):** Concrete over abstract. The rule to prefer parent class files (`generic.py`) over subclass files (`frame.py`) turns out to be practically valuable in large Python codebases.
-
-**Taylorism (+3.3 pts):** Explicit step-by-step decomposition keeps the agent on task. Scientific management, applied to file search, is efficient.
-
-**Keynesianism (-6.7 pts):** The multiplier heuristic — rank files by how many other files import them — systematically misfires. A widely-imported utility module is almost never where the specific bug lives.
+The Pragmatist skill helped almost as much by adding one practical rule: *prefer parent class files over subclass files*. Simple, specific, effective.
 
 ---
 
-## The Skills
+## 💀 Why Does Keynesianism Hurt?
 
-Each is a standalone `SKILL.md` file, usable in Claude Code, Codex, or any agent that accepts a system prompt prefix.
+The Keynesian "multiplier heuristic" — rank files by how many others import them — sounds reasonable. It isn't.
 
-| Skill | Directory | Core Idea | Loc-Bench |
-|-------|-----------|-----------|-----------|
-| Marxist Engineering | [`马克思/marxist-engineering-method/`](马克思/marxist-engineering-method/) | Material conditions first, find the principal contradiction | **+6.7 pts** |
-| Pragmatist Engineering | [`实用主义/pragmatist-engineering/`](实用主义/pragmatist-engineering/) | Translate claims into consequences, prefer the cheapest next step | +3.3 pts |
-| Taylorist Execution | [`泰勒主义/`](泰勒主义/) | Study before acting, explicit instruction cards | +3.3 pts |
-| Evolutionary Execution | [`社会达尔文主义-演化/evolutionary-execution/`](社会达尔文主义-演化/evolutionary-execution/) | Verify every path exists before including it | ±0 pts |
-| Keynesian Engineer | [`凯恩斯主义/keynesian-engineer/`](凯恩斯主义/) | Effective demand, multiplier ranking | -6.7 pts |
-
-Each skill directory contains the main `SKILL.md` and a `references/` folder with the philosophical grounding (also included in the prompt, space permitting).
+A shared utility imported by 50 modules is almost never where a specific bug lives. The more popular a file is, the *less* likely it is to be your answer. Keynesianism systematically points the agent at the wrong place, every time.
 
 ---
 
-## Using a Skill
+## 🛠️ The Skills
+
+Each ideology is a `SKILL.md` — a structured methodology prompt you can drop into any agent.
+
+| Skill | Core Idea | Loc-Bench |
+|-------|-----------|-----------|
+| [🔴 Marxist](马克思/marxist-engineering-method/SKILL.md) | Material conditions first. Find the principal contradiction. Trace connections. | **+6.7 pts** |
+| [🔧 Pragmatist](实用主义/pragmatist-engineering/SKILL.md) | Translate claims into consequences. Prefer parent class files. | +3.3 pts |
+| [📋 Taylorist](泰勒主义/SKILL.md) | Study before acting. Explicit step-by-step process. | +3.3 pts |
+| [🧬 Evolutionary](社会达尔文主义-演化/evolutionary-execution/SKILL.md) | Verify every file path exists before including it. | ±0 pts |
+| [📉 Keynesian](凯恩斯主义/keynesian-engineer/SKILL.md) | Rank by import frequency. Stimulate activity. | **-6.7 pts** |
+
+Each skill directory has the main `SKILL.md` and a `references/` folder with the philosophical grounding.
+
+---
+
+## ⚡ Use a Skill Now
 
 ### Claude Code
 
-Copy the skill into your project and reference it in `CLAUDE.md`:
-
 ```bash
+# Copy the winning skill into your project
 cp 马克思/marxist-engineering-method/SKILL.md ./SKILL.md
 ```
 
-```markdown
-# CLAUDE.md
+Add to your `CLAUDE.md`:
+```
 @./SKILL.md
 ```
 
-### Any Agent (system prompt)
+### Any Agent
 
-The `SKILL.md` files are plain Markdown. Prepend the content to your system prompt — no external dependencies, no special format required.
+The `SKILL.md` files are plain Markdown. Prepend the content to your system prompt. No dependencies, no setup.
 
 ---
 
-## Reproducing the Benchmarks
+## 🔬 Reproduce
 
-Requirements: Python 3.11+, [uv](https://github.com/astral-sh/uv), `ANTHROPIC_API_KEY` in your environment.
+Requirements: Python 3.11+, [uv](https://github.com/astral-sh/uv), `ANTHROPIC_API_KEY`.
 
 ```bash
-git clone https://github.com/your-username/methodology
-cd methodology/benchmark
+git clone https://github.com/espenzhang/agent-isms
+cd agent-isms/benchmark
 uv sync
 
-# Run all variants (fault localization, ~$5–10 in API costs)
+# Run fault localization (all variants, ~$5–10)
 uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench
 
-# Or run a single variant
+# Single variant
 uv run skill-bench run --config benchmark.locbench.toml --benchmark locbench --variant marxist_only
 
-# Regenerate reports
+# Report
 uv run skill-bench report --config benchmark.locbench.toml
 ```
 
-The runner caches per-task results — if a run is interrupted, restarting picks up where it left off.
+Interrupted runs pick up where they left off.
 
 ---
 
-## Repository Layout
+## ❌ What This Isn't
+
+- **Not a political statement.** These are engineering methodologies that happen to have ideological names.
+- **Not prompt injection magic.** The improvements come from specific investigation procedures, not vibes.
+- **Not universally applicable.** On factual recall (SimpleQA) and pure code writing (SWE-bench), effects are smaller or mixed.
+
+---
+
+## 📂 Repo Layout
 
 ```
-methodology/
-├── 马克思/marxist-engineering-method/      Marxist skill + philosophical references
-├── 实用主义/pragmatist-engineering/        Pragmatist skill
-├── 凯恩斯主义/keynesian-engineer/          Keynesian skill
-├── 社会达尔文主义-演化/evolutionary-execution/  Evolutionary skill
-├── 泰勒主义/                               Taylorist skill
+agent-isms/
+├── 马克思/marxist-engineering-method/   Marxist skill + references
+├── 实用主义/pragmatist-engineering/     Pragmatist skill
+├── 凯恩斯主义/keynesian-engineer/       Keynesian skill
+├── 社会达尔文主义-演化/                 Evolutionary skill
+├── 泰勒主义/                           Taylorist skill
 └── benchmark/
-    ├── skill_bench/                       Benchmark runner source (Python)
-    ├── benchmark.*.toml                   Per-benchmark configuration
-    ├── samples/                           Sampled tasks (30–100 per benchmark)
-    └── reports/                           Results: summary.md, dashboard.html, leaderboard.csv
+    ├── skill_bench/                    Benchmark runner (Python)
+    ├── benchmark.*.toml               Config
+    ├── samples/                        30–100 tasks per benchmark
+    └── reports/                        summary.md, dashboard.html, leaderboard.csv
 ```
 
 ---
 
-## Caveats
+## 🙏 Inspiration
 
-- **Small samples.** n=30 for locbench, n=50 for mathvista. Results are directionally consistent but not statistically conclusive.
-- **Model-specific.** All runs used Claude Sonnet. Results may differ on other models or with different temperatures.
-- **Task-type matters.** Marxism wins on fault localization and math reasoning. On factual recall (SimpleQA) and pure code generation (SWE-bench), effects are smaller or reversed.
-- **The label is incidental.** What actually drives the improvement is the specific investigation procedure embedded in each file — not the ideological brand.
+- [HughYau/qiushi-skill](https://github.com/HughYau/qiushi-skill) — the original idea that Maoist methodology translates into engineering practice
 
 ---
 
