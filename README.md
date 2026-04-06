@@ -23,7 +23,7 @@ The premise: what if the *way* an agent thinks about code — the underlying rea
    ─────────────────────────────── baseline ──────────────────
    Baseline     ████████████████████████████░░░░░░░░░░░░  43.3%
    Evolutionary ████████████████████████████░░░░░░░░░░░░  43.3%
-💀 Keynesian    ████████████████████████░░░░░░░░░░░░░░░░  36.7%  -6.7 pts
+   Keynesian    ████████████████████████░░░░░░░░░░░░░░░░  36.7%  -6.7 pts
 ```
 
 ### Visual Math Reasoning — 50 problems
