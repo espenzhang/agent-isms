@@ -432,19 +432,6 @@
         "pass_rate": 0.82,
         "baseline_delta": 0.0
       },
-      "qiushi_only": {
-        "benchmark_id": "mathvista",
-        "variant_id": "qiushi_only",
-        "total": 50,
-        "passed": 41,
-        "failed": 9,
-        "skipped": 0,
-        "extra": {
-          "scoring": "local_exact_match"
-        },
-        "pass_rate": 0.82,
-        "baseline_delta": 0.0
-      },
       "evolutionary_only": {
         "benchmark_id": "mathvista",
         "variant_id": "evolutionary_only",

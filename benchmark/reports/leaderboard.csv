@@ -32,7 +32,6 @@ mathvista,evolutionary_only,50,40,10,0,0.8,-0.019999999999999907
 mathvista,keynesian_only,50,41,9,0,0.82,0.0
 mathvista,marxist_only,50,42,8,0,0.84,0.020000000000000018
 mathvista,pragmatist_only,50,41,9,0,0.82,0.0
-mathvista,qiushi_only,50,41,9,0,0.82,0.0
 mathvista,taylorism_only,50,40,10,0,0.8,-0.019999999999999907
 simpleqa_verified,all_skills,100,9,91,0,0.09,-0.04000000000000001
 simpleqa_verified,baseline,100,13,87,0,0.13,0.0

@@ -95,7 +95,6 @@
 | 泰勒主义执行 | [`泰勒主义/`](泰勒主义/) | 先研究后行动，明确操作规程 | +3.3 分 |
 | 演化论执行 | [`社会达尔文主义-演化/evolutionary-execution/`](社会达尔文主义-演化/evolutionary-execution/) | 路径完整性优先，验证每个文件路径确实存在 | ±0 分 |
 | 凯恩斯主义工程 | [`凯恩斯主义/keynesian-engineer/`](凯恩斯主义/) | 需求侧优先，乘数效应排序 | -6.7 分 |
-| 求是 | [`求是/`](求是/) | 实事求是；用于一般项目工作，未参与基准测试 | — |
 
 每个技能目录包含主 `SKILL.md` 和 `references/` 哲学参考文件夹（空间允许时也会包含在提示词中）。
 
@@ -154,7 +153,6 @@ methodology/
 ├── 凯恩斯主义/keynesian-engineer/           凯恩斯主义技能
 ├── 社会达尔文主义-演化/evolutionary-execution/   演化论技能
 ├── 泰勒主义/                                泰勒主义技能
-├── 求是/                                   求是技能（通用项目工作）
 └── benchmark/
     ├── skill_bench/                        基准测试框架源码（Python）
     ├── benchmark.*.toml                    各基准测试配置

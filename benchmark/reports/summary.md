@@ -56,7 +56,6 @@
 | 3 | baseline | 82.0% | +0.0 pts | 41 | 9 | 0 |
 | 4 | keynesian_only | 82.0% | +0.0 pts | 41 | 9 | 0 |
 | 5 | pragmatist_only | 82.0% | +0.0 pts | 41 | 9 | 0 |
-| 6 | qiushi_only | 82.0% | +0.0 pts | 41 | 9 | 0 |
 | 7 | evolutionary_only | 80.0% | -2.0 pts | 40 | 10 | 0 |
 | 8 | taylorism_only | 80.0% | -2.0 pts | 40 | 10 | 0 |
 
@@ -119,7 +118,6 @@
 | mathvista | keynesian_only | 50 | 41 | 9 | 0 |
 | mathvista | marxist_only | 50 | 42 | 8 | 0 |
 | mathvista | pragmatist_only | 50 | 41 | 9 | 0 |
-| mathvista | qiushi_only | 50 | 41 | 9 | 0 |
 | mathvista | taylorism_only | 50 | 40 | 10 | 0 |
 | simpleqa_verified | all_skills | 100 | 9 | 91 | 0 |
 | simpleqa_verified | baseline | 100 | 13 | 87 | 0 |

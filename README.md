@@ -95,7 +95,6 @@ Each is a standalone `SKILL.md` file, usable in Claude Code, Codex, or any agent
 | Taylorist Execution | [`泰勒主义/`](泰勒主义/) | Study before acting, explicit instruction cards | +3.3 pts |
 | Evolutionary Execution | [`社会达尔文主义-演化/evolutionary-execution/`](社会达尔文主义-演化/evolutionary-execution/) | Verify every path exists before including it | ±0 pts |
 | Keynesian Engineer | [`凯恩斯主义/keynesian-engineer/`](凯恩斯主义/) | Effective demand, multiplier ranking | -6.7 pts |
-| Qiushi (求是) | [`求是/`](求是/) | Seek truth from facts; general project work | not benchmarked |
 
 Each skill directory contains the main `SKILL.md` and a `references/` folder with the philosophical grounding (also included in the prompt, space permitting).
 
@@ -154,7 +153,6 @@ methodology/
 ├── 凯恩斯主义/keynesian-engineer/          Keynesian skill
 ├── 社会达尔文主义-演化/evolutionary-execution/  Evolutionary skill
 ├── 泰勒主义/                               Taylorist skill
-├── 求是/                                  Qiushi skill (general project use)
 └── benchmark/
     ├── skill_bench/                       Benchmark runner source (Python)
     ├── benchmark.*.toml                   Per-benchmark configuration

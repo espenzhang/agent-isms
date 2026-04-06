@@ -43,11 +43,6 @@ id = "marxist"
 name = "Marxist Engineering Method"
 path = "../马克思/marxist-engineering-method/SKILL.md"
 
-[[skills]]
-id = "qiushi"
-name = "求是"
-path = "../求是"
-
 [[variants]]
 id = "baseline"
 name = "Baseline"
@@ -79,14 +74,9 @@ name = "Marxist Only"
 skills = ["marxist"]
 
 [[variants]]
-id = "qiushi_only"
-name = "求是 Only"
-skills = ["qiushi"]
-
-[[variants]]
 id = "all_skills"
 name = "All Skills"
-skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist", "qiushi"]
+skills = ["taylorism", "keynesian", "pragmatist", "evolutionary", "marxist"]
 
 [benchmarks.aider_polyglot]
 enabled = true
