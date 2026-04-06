@@ -1,4 +1,4 @@
-# 🔴 Methodology-Driven AI Agents
+# ⚙️ Methodology-Driven AI Agents
 
 **[中文版本](README_ZH.md)**
 
@@ -62,7 +62,7 @@ The Pragmatist method helped almost as much, via one concrete rule: *prefer pare
 
 ---
 
-## 💀 Why Does the Keynesian Method Hurt?
+## 📉 Why Does the Keynesian Method Hurt?
 
 The Keynesian "multiplier heuristic" — rank files by how many others import them — sounds reasonable. It isn't.
 
@@ -76,7 +76,7 @@ Each is a `SKILL.md` — a structured reasoning prompt you can drop into any age
 
 | Method | Core Idea | Loc-Bench |
 |--------|-----------|-----------|
-| [🔴 Marxist](马克思/marxist-engineering-method/SKILL.md) | Material conditions first. Find the principal contradiction. Trace connections. | **+6.7 pts** |
+| [🏆 Marxist](马克思/marxist-engineering-method/SKILL.md) | Material conditions first. Find the principal contradiction. Trace connections. | **+6.7 pts** |
 | [🔧 Pragmatist](实用主义/pragmatist-engineering/SKILL.md) | Translate claims into consequences. Prefer parent class files. | +3.3 pts |
 | [📋 Taylorist](泰勒主义/SKILL.md) | Study before acting. Explicit step-by-step process. | +3.3 pts |
 | [🧬 Evolutionary](社会达尔文主义-演化/evolutionary-execution/SKILL.md) | Verify every file path exists before including it. | ±0 pts |
@@ -126,14 +126,6 @@ uv run skill-bench report --config benchmark.locbench.toml
 ```
 
 Interrupted runs pick up where they left off.
-
----
-
-## ❌ What This Isn't
-
-- **Not a political statement.** These are engineering reasoning frameworks that happen to be named after schools of thought.
-- **Not prompt injection magic.** The improvements come from specific investigation procedures, not vibes.
-- **Not a silver bullet.** Results are strongest on code investigation tasks. Other task types weren't part of this study.
 
 ---
 
