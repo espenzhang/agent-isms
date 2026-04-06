@@ -2,10 +2,11 @@
 
 **[中文版本](README_ZH.md)**
 
-> Took five schools of thought, wrote each one into an agent prompt, ran real benchmarks.
+> Humans get better at solving problems by learning systematic ways of thinking. Does the same apply to AI agents?
+> We picked five classic schools of thought, turned each into an agent prompt, and ran benchmarks to find out.
 > **Marxism won.** Keynesianism made things worse. The rest helped a bit.
 
-Weird idea: does the reasoning framework an agent uses actually change how well it debugs code? Yes. More than I expected.
+Turns out the reasoning framework matters — a lot. Here's the data.
 
 ---
 
