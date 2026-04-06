@@ -2,10 +2,10 @@
 
 **[中文版本](README_ZH.md)**
 
-> We distilled five different schools of thought into structured engineering methodologies, gave them to an AI coding agent, and ran benchmarks.
-> **The Marxist method won.** The Keynesian method made things worse. Most others helped.
+> Took five schools of thought, wrote each one into an agent prompt, ran real benchmarks.
+> **Marxism won.** Keynesianism made things worse. The rest helped a bit.
 
-The premise: what if the *way* an agent thinks about code — the underlying reasoning framework — actually matters? Turns out it does. More than expected.
+Weird idea: does the reasoning framework an agent uses actually change how well it debugs code? Yes. More than I expected.
 
 ---
 
