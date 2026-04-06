@@ -1,11 +1,11 @@
-# 🔴 Ideology-Driven AI Agents
+# 🔴 Methodology-Driven AI Agents
 
 **[中文版本](README_ZH.md)**
 
-> We gave five political ideologies to an AI coding agent and ran them through real benchmarks.
-> **Marxism won.** Keynesianism made things worse. Most others helped a little.
+> We distilled five different schools of thought into structured engineering methodologies, gave them to an AI coding agent, and ran benchmarks.
+> **The Marxist method won.** The Keynesian method made things worse. Most others helped.
 
-This started as a weird idea: what if the *framing* of how an agent thinks about code — the underlying worldview — actually matters? Turns out it does. More than expected.
+The premise: what if the *way* an agent thinks about code — the underlying reasoning framework — actually matters? Turns out it does. More than expected.
 
 ---
 
@@ -19,7 +19,7 @@ This started as a weird idea: what if the *framing* of how an agent thinks about
 🥇 Marxist      ████████████████████████████████░░░░░░░░  50.0%  +6.7 pts
    Pragmatist   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
    Taylorist    ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
-   All Skills   ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
+   All Methods  ██████████████████████████████░░░░░░░░░░  46.7%  +3.3 pts
    ─────────────────────────────── baseline ──────────────────
    Baseline     ████████████████████████████░░░░░░░░░░░░  43.3%
    Evolutionary ████████████████████████████░░░░░░░░░░░░  43.3%
@@ -36,19 +36,19 @@ This started as a weird idea: what if the *framing* of how an agent thinks about
    Taylorist    ████████████████████████████████████████░   80.0%  -2.0 pts
 ```
 
-Marxism is the only framework that improves on *both* benchmarks.
+The Marxist method is the only one that improves on *both* benchmarks.
 
 Full results: [`benchmark/reports/summary.md`](benchmark/reports/summary.md)
 
 ---
 
-## 🤔 Why Does This Work?
+## 🤔 Why Does the Marxist Method Work?
 
-The Marxist skill isn't a gimmick. It maps dialectical materialism onto a concrete investigation procedure — and the mapping is surprisingly tight.
+It's not a gimmick. Dialectical materialism maps onto code investigation surprisingly well.
 
 **The core rule: you cannot answer from memory.**
 
-Where other frameworks let the agent reason from what it already knows about a library, the Marxist method makes one thing mandatory: *inspect this specific repository before you predict anything*. Run `find`. Run `grep`. Read the actual imports. Then answer.
+Where other methods let the agent reason from what it already knows about a library, the Marxist method makes one thing mandatory: *inspect this specific repository before you predict anything*. Run `find`. Run `grep`. Read the actual imports. Then answer.
 
 That sounds obvious. It isn't — agents default to pattern-matching from training data, which means wrong paths, wrong file names, wrong subsystems.
 
@@ -58,40 +58,40 @@ Beyond that:
 - **"Trace universal connections"** → follow imports both ways; check base classes (`generic.py`), not just subclasses (`frame.py`)
 - **"Find the principal contradiction"** → rank by causal proximity, not surface relevance
 
-The Pragmatist skill helped almost as much by adding one practical rule: *prefer parent class files over subclass files*. Simple, specific, effective.
+The Pragmatist method helped almost as much, via one concrete rule: *prefer parent class files over subclass files*. Simple, specific, effective.
 
 ---
 
-## 💀 Why Does Keynesianism Hurt?
+## 💀 Why Does the Keynesian Method Hurt?
 
 The Keynesian "multiplier heuristic" — rank files by how many others import them — sounds reasonable. It isn't.
 
-A shared utility imported by 50 modules is almost never where a specific bug lives. The more popular a file is, the *less* likely it is to be your answer. Keynesianism systematically points the agent at the wrong place, every time.
+A shared utility imported by 50 modules is almost never where a specific bug lives. The more popular a file is, the *less* likely it is to be your answer. The Keynesian method systematically points the agent at the wrong place, every time.
 
 ---
 
-## 🛠️ The Skills
+## 🛠️ The Methods
 
-Each ideology is a `SKILL.md` — a structured methodology prompt you can drop into any agent.
+Each is a `SKILL.md` — a structured reasoning prompt you can drop into any agent.
 
-| Skill | Core Idea | Loc-Bench |
-|-------|-----------|-----------|
+| Method | Core Idea | Loc-Bench |
+|--------|-----------|-----------|
 | [🔴 Marxist](马克思/marxist-engineering-method/SKILL.md) | Material conditions first. Find the principal contradiction. Trace connections. | **+6.7 pts** |
 | [🔧 Pragmatist](实用主义/pragmatist-engineering/SKILL.md) | Translate claims into consequences. Prefer parent class files. | +3.3 pts |
 | [📋 Taylorist](泰勒主义/SKILL.md) | Study before acting. Explicit step-by-step process. | +3.3 pts |
 | [🧬 Evolutionary](社会达尔文主义-演化/evolutionary-execution/SKILL.md) | Verify every file path exists before including it. | ±0 pts |
 | [📉 Keynesian](凯恩斯主义/keynesian-engineer/SKILL.md) | Rank by import frequency. Stimulate activity. | **-6.7 pts** |
 
-Each skill directory has the main `SKILL.md` and a `references/` folder with the philosophical grounding.
+Each directory has the main `SKILL.md` and a `references/` folder with the philosophical grounding.
 
 ---
 
-## ⚡ Use a Skill Now
+## ⚡ Use a Method Now
 
 ### Claude Code
 
 ```bash
-# Copy the winning skill into your project
+# Copy the best-performing method into your project
 cp 马克思/marxist-engineering-method/SKILL.md ./SKILL.md
 ```
 
@@ -131,9 +131,9 @@ Interrupted runs pick up where they left off.
 
 ## ❌ What This Isn't
 
-- **Not a political statement.** These are engineering methodologies that happen to have ideological names.
+- **Not a political statement.** These are engineering reasoning frameworks that happen to be named after schools of thought.
 - **Not prompt injection magic.** The improvements come from specific investigation procedures, not vibes.
-- **Not universally applicable.** On factual recall (SimpleQA) and pure code writing (SWE-bench), effects are smaller or mixed.
+- **Not a silver bullet.** Results are strongest on code investigation tasks. Other task types weren't part of this study.
 
 ---
 
@@ -141,11 +141,11 @@ Interrupted runs pick up where they left off.
 
 ```
 agent-isms/
-├── 马克思/marxist-engineering-method/   Marxist skill + references
-├── 实用主义/pragmatist-engineering/     Pragmatist skill
-├── 凯恩斯主义/keynesian-engineer/       Keynesian skill
-├── 社会达尔文主义-演化/                 Evolutionary skill
-├── 泰勒主义/                           Taylorist skill
+├── 马克思/marxist-engineering-method/   Marxist method + references
+├── 实用主义/pragmatist-engineering/     Pragmatist method
+├── 凯恩斯主义/keynesian-engineer/       Keynesian method
+├── 社会达尔文主义-演化/                 Evolutionary method
+├── 泰勒主义/                           Taylorist method
 └── benchmark/
     ├── skill_bench/                    Benchmark runner (Python)
     ├── benchmark.*.toml               Config
@@ -157,7 +157,7 @@ agent-isms/
 
 ## 🙏 Inspiration
 
-- [HughYau/qiushi-skill](https://github.com/HughYau/qiushi-skill) — the original idea that Maoist methodology translates into engineering practice
+- [HughYau/qiushi-skill](https://github.com/HughYau/qiushi-skill) — the original idea that classical methodology translates directly into engineering practice
 
 ---
 
